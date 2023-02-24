@@ -14,6 +14,7 @@ import DashboardScreen from "./src/screens/DashboardScreen";
 import SetParkingSpotScreen from "./src/screens/SetParkingSpotScreen";
 import SetReservedSpotScreen from "./src/screens/SetReservedSpotScreen";
 import {SetTierOverviewScreen, AddTierScreen} from "./src/screens/SetTierScreen";
+import CalendarScreen from "./src/screens/CalendarScreen";
 
 const AuthStackNav = createNativeStackNavigator();
 
@@ -23,6 +24,7 @@ const UserStack = ({isAdmin}) => {
         <NavigationContainer>
             <AuthStackNav.Navigator>
                 <AuthStackNav.Screen name={'home'} component={HomeScreen}/>
+                <AuthStackNav.Screen name={'calendar'} component={CalendarScreen}/>
 
                 {isAdmin ? <>
                     <AuthStackNav.Screen name={'dashboard'} component={DashboardScreen}/>

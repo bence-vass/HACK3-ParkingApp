@@ -15,17 +15,6 @@ const styles = StyleSheet.create({
     },
 });
 
-const sendData = async () => {
-    console.log('send data');
-    try {
-        const docRef = await addDoc(collection(db, 'logs'), {
-            smtn: 'hello1'
-        });
-        console.log("ID: ", docRef.id);
-    } catch (e) {
-        console.error(e);
-    }
-}
 
 const HomeScreen = ({navigation}) => {
     const {user} = useAuthentication()
@@ -36,8 +25,7 @@ const HomeScreen = ({navigation}) => {
             <Text>Credit: {user?.credit ? user.credit : 0}</Text>
 
             {user?.isAdmin ? <Button title={'Dashboard'} onPress={()=>navigation.navigate('dashboard')}/>: null}
-
-            <Button title={"Firebase"} onPress={sendData}/>
+            <Button title={"Calendar"} onPress={()=>navigation.navigate('calendar')}/>
             <Button title={"Sign out"} onPress={()=>signOut(auth)}/>
 
             <StatusBar style="auto"/>
