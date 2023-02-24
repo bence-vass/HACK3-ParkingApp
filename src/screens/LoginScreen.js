@@ -50,7 +50,6 @@ const LoginScreen = ({navigation}) => {
 
             <Button title={"Login"} onPress={login}/>
 
-            <StatusBar style="auto"/>
         </View>
     );
 }

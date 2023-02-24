@@ -22,11 +22,16 @@ const UserStack = ({isAdmin}) => {
 
     return (
         <NavigationContainer>
-            <AuthStackNav.Navigator>
+            <AuthStackNav.Navigator
+                screenOptions={{
+                    headerShown: false,
+                }}
+            >
                 <AuthStackNav.Screen name={'home'} component={HomeScreen}/>
                 <AuthStackNav.Screen name={'calendar'} component={CalendarScreen}/>
 
                 {isAdmin ? <>
+
                     <AuthStackNav.Screen name={'dashboard'} component={DashboardScreen}/>
                     <AuthStackNav.Screen name={'set-parking-spots'} component={SetParkingSpotScreen}/>
                     <AuthStackNav.Screen name={'set-reserved-spots'} component={SetReservedSpotScreen}/>
@@ -49,10 +54,6 @@ const AuthStack = () => {
                 <UserStackNav.Screen name={'login'} component={LoginScreen}/>
                 <UserStackNav.Screen name={'sign-up'} component={SignupScreen}/>
 
-                {/* Admin Pages */}
-
-                <UserStackNav.Screen name={"dashboard"} component={DashboardScreen}/>
-
             </UserStackNav.Navigator>
         </NavigationContainer>
     )
@@ -61,5 +62,17 @@ const AuthStack = () => {
 export default function App() {
     const {user} = useAuthentication()
     console.log(user?.isAdmin)
-    return user ? <UserStack isAdmin={user?.isAdmin}/> : <AuthStack/>
+    if(user){
+        return (
+            <>
+                <UserStack isAdmin={user?.isAdmin}/>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <AuthStack/>
+            </>
+        )
+    }
 }
