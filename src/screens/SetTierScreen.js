@@ -23,17 +23,6 @@ const styles = StyleSheet.create({
     },
 });
 
-const sendData = async () => {
-    console.log('send data');
-    try {
-        const docRef = await addDoc(collection(db, 'logs'), {
-            smtn: 'hello1'
-        });
-        console.log("ID: ", docRef.id);
-    } catch (e) {
-        console.error(e);
-    }
-}
 
 
 export const SetTierOverviewScreen = ({navigation}) => {

@@ -5,6 +5,7 @@ import {StatusBar} from "expo-status-bar";
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import {useEffect, useState} from "react";
+import {useIsFocused} from "@react-navigation/native";
 
 
 const styles = StyleSheet.create({
@@ -32,7 +33,7 @@ const sendData = async () => {
 const SetParkingSpotScreen = ({navigation}) => {
     const {user} = useAuthentication()
     const [spots, setSpots] = useState()
-
+    const isFocused = useIsFocused()
     useEffect(() => {
         async function fetchData() {
             const docSnap = await getDoc(doc(db, 'garages', 'my-garage'))
@@ -41,11 +42,9 @@ const SetParkingSpotScreen = ({navigation}) => {
                 setSpots(data)
             }
         }
-        console.log('refetch set sparking sot')
         fetchData();
-    }, [])
+    }, [isFocused])
 
-    console.log('render spot screen')
 
     return (
         <View style={styles.container}>

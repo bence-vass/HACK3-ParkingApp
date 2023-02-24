@@ -32,39 +32,16 @@ const styles = StyleSheet.create({
     },
 });
 
-const sendData = async () => {
-    console.log('send data');
-    try {
-        const docRef = await addDoc(collection(db, 'logs'), {
-            smtn: 'hello1'
-        });
-        console.log("ID: ", docRef.id);
-    } catch (e) {
-        console.error(e);
-    }
-}
-
 
 const queryReservedSpots = query(
     collection(db, 'users'),
     where('reservedParkingSpot', '==', true)
 )
 
-const setFirestoreCountReservedSpots = () => {
-    getCountFromServer(queryReservedSpots).then((d) => {
-        const count = d.data().count
-        setDoc(doc(db, 'garages', 'my-garage'), {
-            reserved: count,
-        }, {merge: true}).then(d => {
-            console.log(d)
-        })
-
-    })
-}
-
 
 const SetReservedSpotScreen = () => {
     //const {user} = useAuthentication()
+    const [counterReserved, setCounterReserved] = useState(0)
 
     const [email, onChangeText] = useState("asd1@asd.com")
 
@@ -73,35 +50,40 @@ const SetReservedSpotScreen = () => {
         available: 0
     })
 
+
     useEffect(() => {
-        async function fetchData() {
-            const docSnap = await getDoc(doc(db, 'garages', 'my-garage'))
-            if (docSnap.exists()) {
-                let data = await docSnap.data()
-                setGarage(data)
-            }
-        }
+
+        fetchGarage()
 
         fetchReservedUsers()
-        fetchData()
 
     }, [])
 
+    async function fetchGarage() {
+        const docSnap = await getDoc(doc(db, 'garages', 'my-garage'))
+        if (docSnap.exists()) {
+            let data = await docSnap.data()
+            setGarage(data)
+        }
+    }
 
     const fetchReservedUsers = async () => {
-        setUsers([])
 
+        console.log('fetch user')
         const docsSnap = await getDocs(queryReservedSpots)
-        if (!docsSnap.empty) {
-            await docsSnap.forEach(d => {
-                let new_data = {id: d.id, ...d.data()}
-                console.log(new_data)
-                setUsers(prevUser => [...prevUser, new_data])
-                //console.log(users)
-            })
-        } else {
-            console.log('no res')
-        }
+        let u = []
+        await docsSnap.forEach(d => {
+            let new_data = {id: d.id, ...d.data()}
+            u = [...u, new_data]
+        })
+        setUsers(u)
+        console.log(u)
+        setCounterReserved(u.length)
+
+        await setDoc(doc(db, 'garages', 'my-garage'),{
+            reserved: u.length
+        }, {merge: true})
+
     }
 
 
@@ -112,12 +94,13 @@ const SetReservedSpotScreen = () => {
         )
         const docsSnap = await getDocs(q)
         if (!docsSnap.empty) {
-            docsSnap.forEach(d => {
+            await docsSnap.forEach(d => {
                 setDoc(doc(db, 'users', d.id), {
                     reservedParkingSpot: true,
-                }, {merge: true})
+                }, {merge: true}).then(r => {
+                    fetchReservedUsers()
+                })
 
-                setFirestoreCountReservedSpots()
             })
             onChangeText('')
         } else {
@@ -125,33 +108,42 @@ const SetReservedSpotScreen = () => {
         }
 
     }
+
+
+    const revokeReservedParkingSpot = async (id) => {
+        console.log('revoke for', id)
+        await setDoc(doc(db, 'users', id), {
+            reservedParkingSpot: false,
+        }, {merge: true}).then(r => {
+            fetchReservedUsers()
+        })
+
+    }
+
+
     console.log('render set reser')
     return (
         <View style={styles.container}>
-            <Text>{users?.length ? users.length : 0} out of {garage.available} available spots are reserved</Text>
+            <Text>{counterReserved} out of {garage.available} available spots are reserved</Text>
             <TextInput onChangeText={onChangeText} value={email} style={styles.input}/>
             <Button title={"give user a spot"} onPress={giveSpotByEmail}/>
-            <FlatList data={users} renderItem={({item}) => <ListItem item={item}/>}
+            <FlatList data={users}
+                      renderItem={({item}) => <ListItem item={item} revokeFunction={revokeReservedParkingSpot}/>}
                       keyExtractor={(item, index) => 'key' + index}/>
         </View>
     );
 }
 
+const ListItem = ({item, revokeFunction}) => (
+    <View>
+        <Text>{item.email}</Text>
+        <Button title={"revoke"} onPress={() => revokeFunction(item.id)}/>
+    </View>
+)
+
 export default SetReservedSpotScreen;
 
 
-const revokeReservedParkingSpot = async (id) => {
-    console.log('revoke for', id)
-    await setDoc(doc(db, 'users', id), {
-        reservedParkingSpot: false,
-    }, {merge: true})
 
-    setFirestoreCountReservedSpots()
-}
 
-const ListItem = ({item}) => (
-    <View>
-        <Text>{item.email}</Text>
-        <Button title={"revoke"} onPress={() => revokeReservedParkingSpot(item.id)}/>
-    </View>
-)
+
