@@ -44,7 +44,7 @@ const LoginScreen = ({navigation}) => {
 
     return (
         <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex: 1}}>
-            <Header displayBurger={false} displayBack={true} navigation={navigation}/>
+            <Header displayBurger={false} displayBack={true} navigation={navigation} navigate_to={'sign-up'}/>
             <SafeAreaView style={{alignContent: 'center', justifyContent: 'center', flex:1}}>
                 <View style={{
                     padding: 25,

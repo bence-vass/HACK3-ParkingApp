@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
 });
 
 
-const Header = ({navigation, displayBurger = true, displayBack=false}) => {
+const Header = ({navigation, displayBurger = true, displayBack=false, navigate_to}) => {
     return (
         <View style={styles.headerContainer}>
             <SafeAreaView style={{
@@ -90,7 +90,7 @@ const Header = ({navigation, displayBurger = true, displayBack=false}) => {
 
                         : null}
                     {displayBack ?
-                        <TouchableOpacity onPress={()=> navigation.goBack() } style={{
+                        <TouchableOpacity onPress={()=> navigation.navigate(navigate_to) } style={{
                             //backgroundColor: 'red',
                             position: "absolute",
                             alignItems: 'center',

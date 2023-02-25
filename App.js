@@ -128,8 +128,9 @@ const AuthStack = () => {
                     headerShown: false,
                 }}
             >
-                <UserStackNav.Screen name={'landing'} component={LandingScreen}/>
                 <UserStackNav.Screen name={'login'} component={LoginScreen}/>
+
+                <UserStackNav.Screen name={'landing'} component={LandingScreen}/>
                 <UserStackNav.Screen name={'sign-up'} component={SignupScreen}/>
 
             </UserStackNav.Navigator>

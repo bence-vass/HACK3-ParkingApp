@@ -7,15 +7,25 @@ import {getAuth, signOut} from "firebase/auth";
 import Header from "../components/Header";
 import COLORS from "../utils/COLORS";
 
+const UpPic = require('../../assets/up.png')
+const DownPic = require('../../assets/down.png')
+const Leaderboard1 = require('../../assets/leader1.png')
+const Leaderboard2 = require('../../assets/leader2.png')
+const Leaderboard3 = require('../../assets/leader3.png')
 
-const Leaderboard1 = require('../../assets/go.png')
+const Avatar1 = require('../../assets/avatar1.png')
+const Avatar2 = require('../../assets/avatar2.png')
+const Avatar3 = require('../../assets/avatar3.png')
+const Avatar4 = require('../../assets/avatar4.png')
+const Avatar5 = require('../../assets/avatar5.png')
+
 
 
 const MockData = [
     {
         id: 1,
         name: 'You',
-        image: Leaderboard1,
+        image: Avatar1,
         credit: 30,
         rank: 28,
         up: true,
@@ -23,7 +33,7 @@ const MockData = [
     {
         id: 2,
         name: 'Martha Anderson',
-        image: Leaderboard1,
+        image: Avatar2,
         credit: 80,
         rank: 28,
         up: false,
@@ -32,7 +42,43 @@ const MockData = [
     {
         id: 3,
         name: 'Julia Clover',
-        image: Leaderboard1,
+        image: Avatar3,
+        credit: 50,
+        rank: 28,
+        up: true,
+
+    },
+    {
+        id: 4,
+        name: 'Martha Anderson',
+        image: Avatar4,
+        credit: 80,
+        rank: 28,
+        up: false,
+
+    },
+    {
+        id: 5,
+        name: 'Julia Clover',
+        image: Avatar5,
+        credit: 50,
+        rank: 28,
+        up: true,
+
+    },
+    {
+        id: 6,
+        name: 'Martha Anderson',
+        image: Avatar3,
+        credit: 80,
+        rank: 28,
+        up: false,
+
+    },
+    {
+        id: 7,
+        name: 'Julia Clover',
+        image: Avatar4,
         credit: 50,
         rank: 28,
         up: true,
@@ -128,9 +174,9 @@ const LeaderboardScreen = ({navigation}) => {
                         paddingHorizontal: 13,
                         flexDirection: 'row',
                     }}>
-                        <Leader height={130} name={"Maria"} score={254}/>
-                        <Leader height={150} top={true} name={"Rachel"} score={1200}/>
-                        <Leader height={100} name={"Andrew"} score={100}/>
+                        <Leader height={145} name={"Maria"} score={254} image={Leaderboard2}/>
+                        <Leader height={190} top={true} name={"Rachel"} score={1200} image={Leaderboard1}/>
+                        <Leader height={130} name={"Andrew"} score={100} image={Leaderboard3}/>
 
 
                     </View>
@@ -168,7 +214,7 @@ const NearYou = ({item, isDark}) => {
             borderRadius: 15,
             marginBottom: 10,
             flexDirection: 'row',
-        }}>
+        }} key={item.id}>
             <Image source={item.image} style={{
                 height: 50,
                 width: 50,
@@ -193,11 +239,31 @@ const NearYou = ({item, isDark}) => {
                     color: COLORS.WHITE,
                     fontSize: 12,
                     //backgroundColor: 'green'
-                }}>${item.credit}</Text>
+                }}>{item.credit} DP</Text>
             </View>
-            <View>
-                <View><Text>{item.up  ? ">" : "<"}</Text></View>
-                <View></View>
+            <View style={{
+                //backgroundColor: 'pink',
+                //alignSelf: 'flex-end',
+                flex:1,
+            }}>
+                <View style={{
+                    //backgroundColor: 'purple',
+                    alignSelf: 'flex-end',
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'row'
+                }}>
+                    <View style={{marginRight: 15}}>{item.up ? <Image source={UpPic}/> : <Image source={DownPic}/> }</View>
+                    <View style={{
+                        borderRadius: 50,
+                        borderWidth: 2,
+                        borderColor: COLORS.WHITE,
+                        padding: 6,
+                        marginRight: 30,
+                    }}><Text style={{color: COLORS.WHITE}}>{item.rank}</Text></View>
+                </View>
+
             </View>
 
         </View>
@@ -205,7 +271,7 @@ const NearYou = ({item, isDark}) => {
 }
 
 
-const Leader = ({height, top, name, score}) => {
+const Leader = ({height, top, name, score ,image}) => {
     return (
         <View style={{
             flex: 1,
@@ -223,11 +289,11 @@ const Leader = ({height, top, name, score}) => {
                 alignItems: 'center',
                 alignContent: 'flex-end',
             }}>
-                <Image source={Leaderboard1} style={{
-                    width: 50,
-                    height: 50,
+                <Image source={image} style={{
+                    width: top ? 120:  80,
+                    height: top ? 110: 80,
                     position: 'relative',
-                    bottom: height / 5,
+                    bottom: height / 3,
                 }} resizeMode={'contain'}/>
                 <Text style={{
                     color: COLORS.DARK_BLUE,

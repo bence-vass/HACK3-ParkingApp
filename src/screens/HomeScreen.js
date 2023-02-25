@@ -12,6 +12,7 @@ import SellBuy from "../components/SellBuy";
 import DefaultWrapper from "../components/DefaultWrapper";
 import {useIsFocused} from "@react-navigation/native";
 import {GoButton} from "../components/Buttons";
+import Chart from "../components/Chart";
 
 
 const styles = StyleSheet.create({
@@ -83,10 +84,11 @@ const HomeScreen = ({navigation}) => {
 
                     </View>
                     {Object.keys(selectedSpot).length === 0 ? <DefaultWrapper>
-                        <Text>Az ár változásához válassza ki a parkolóhelyet</Text>
+                        <Text>Az árfolyamhoz válassza ki a parkolóhelyet</Text>
                     </DefaultWrapper> : null}
-                    <SellBuy/>
 
+                    <Chart/>
+                    <SellBuy/>
                     <GoButton/>
 
                 </SafeAreaView>

@@ -53,7 +53,7 @@ const SignupScreen = ({navigation}) => {
 
     return (
         <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex: 1}}>
-            <Header displayBurger={false} displayBack={true} navigation={navigation}/>
+            <Header displayBurger={false} displayBack={true} navigation={navigation} navigate_to={'login'}/>
 
 
 
