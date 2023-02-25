@@ -50,7 +50,7 @@ const SignupScreen = ({navigation}) => {
             console.error(e);
         }
     }
-
+    console.log(password)
     return (
         <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex: 1}}>
             <Header displayBurger={false} displayBack={true} navigation={navigation} navigate_to={'login'}/>
@@ -81,8 +81,8 @@ const SignupScreen = ({navigation}) => {
                         marginTop: 50,
                         color: COLORS.DARK_BLUE,
                     }}>Password</Text>
-                    <DefaultTextInput onChangeText={setPassword} value={password} secureTextEntry={true}/>
-                    <OrangeButton title={"Create Account"} onPress={signUp} wrapperStyle={{
+                    <DefaultTextInput onChange={setPassword} value={password} secureTextEntry={true}/>
+                    <OrangeButton title={"Új fiók létrehozása"} onPress={signUp} wrapperStyle={{
                         width: 200,
                         alignSelf: 'center',
                         marginTop: 50,

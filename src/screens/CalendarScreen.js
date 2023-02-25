@@ -155,6 +155,7 @@ const CalendarScreen = ({navigation}) => {
                         }} onPress={() => {
                             setSelectedTier()
                             setModalVisibility(false)
+
                         }}>
                             <Text style={{
                                 color: COLORS.WHITE,
@@ -171,6 +172,7 @@ const CalendarScreen = ({navigation}) => {
                             navigation.navigate('home')
                             setModalVisibility(false)
                             setSelectedTier()
+                            setSelectedDates({})
                         }} wrapperStyle={{paddingHorizontal: 100, paddingVertical: 30, marginTop: 30}}/>
                     </View>
                 </SafeAreaView>

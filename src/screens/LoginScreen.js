@@ -69,8 +69,8 @@ const LoginScreen = ({navigation}) => {
                         marginTop: 50,
                         color: COLORS.DARK_BLUE,
                     }}>Password</Text>
-                    <DefaultTextInput onChangeText={setPassword} value={password} secureTextEntry={true}/>
-                    <OrangeButton title={"Login"} onPress={login} wrapperStyle={{
+                    <DefaultTextInput onChange={setPassword} value={password} secureTextEntry={true}/>
+                    <OrangeButton title={"Bejelentkezés"} onPress={login} wrapperStyle={{
                         width: 200,
                         alignSelf: 'center',
                         marginTop: 50,
