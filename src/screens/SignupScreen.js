@@ -1,9 +1,13 @@
 import {setDoc, collection, doc} from "firebase/firestore";
 import {app, db, auth} from "../../firebaseConfig";
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {StatusBar} from "expo-status-bar";
 import {getAuth, createUserWithEmailAndPassword} from "firebase/auth";
 import {useState} from "react";
+import Header from "../components/Header";
+import COLORS from "../utils/COLORS";
+import {DefaultTextInput} from "../components/Inputs";
+import {OrangeButton} from "../components/Buttons";
 
 
 const styles = StyleSheet.create({
@@ -48,17 +52,46 @@ const SignupScreen = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text>Sign up Screen</Text>
-            <Text>Email</Text>
-            <TextInput onChangeText={setEmail} value={email} style={styles.input}/>
+        <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex: 1}}>
+            <Header displayBurger={false} displayBack={true} navigation={navigation}/>
 
-            <Text>Password</Text>
-            <TextInput onChangeText={setPassword} value={password} style={styles.input} secureTextEntry={true}/>
 
-            <Button title={"Create Acccount"} onPress={signUp}/>
 
-            <StatusBar style="auto"/>
+            <SafeAreaView style={{alignContent: 'center', justifyContent: 'center', flex:1}}>
+                <View style={{
+                    padding: 25,
+                    paddingBottom: 55,
+                    //backgroundColor: 'red',
+
+                }}>
+                    <Text style={{
+                        //backgroundColor: 'blue',
+                        alignSelf: 'center',
+                        fontSize: 20,
+                        marginBottom: 15,
+                        color: COLORS.DARK_BLUE,
+                    }}>Email</Text>
+                    <DefaultTextInput onChange={setEmail} value={email}/>
+
+
+                    <Text style={{
+                        alignSelf: 'center',
+                        fontSize: 20,
+                        marginBottom: 15,
+                        marginTop: 50,
+                        color: COLORS.DARK_BLUE,
+                    }}>Password</Text>
+                    <DefaultTextInput onChangeText={setPassword} value={password} secureTextEntry={true}/>
+                    <OrangeButton title={"Create Account"} onPress={signUp} wrapperStyle={{
+                        width: 200,
+                        alignSelf: 'center',
+                        marginTop: 50,
+                    }}/>
+                </View>
+
+
+            </SafeAreaView>
+
         </View>
     );
 }

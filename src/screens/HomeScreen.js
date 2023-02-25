@@ -102,7 +102,6 @@ export default HomeScreen;
 /*
 {user?.isAdmin ? <Button title={'Dashboard'} onPress={()=>navigation.navigate('dashboard')}/>: null}
                 <Button title={"Calendar"} onPress={()=>navigation.navigate('calendar')}/>
-                <Button title={"Sign out"} onPress={()=>signOut(auth)}/>
  */
 
 

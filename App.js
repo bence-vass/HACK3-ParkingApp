@@ -18,6 +18,7 @@ import SetParkingSpotScreen from "./src/screens/SetParkingSpotScreen";
 import SetReservedSpotScreen from "./src/screens/SetReservedSpotScreen";
 import {SetTierOverviewScreen, AddTierScreen} from "./src/screens/SetTierScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
+import ProfileScreen from "./src/screens/ProfileScreen";
 
 const AuthStackNav = createNativeStackNavigator();
 
@@ -56,17 +57,19 @@ const UserDrawer = ({isAdmin}) => {
                     headerShown: false,
                 }}
             >
-                <DrawerNav.Screen name={'home'} component={HomeScreen}/>
+                <DrawerNav.Screen name={'home'} title={'Home'} component={HomeScreen}/>
                 <DrawerNav.Screen name={'calendar'} component={CalendarScreen}/>
+                <DrawerNav.Screen name={'profile'} component={ProfileScreen}/>
 
                 {isAdmin ? <>
 
                     <DrawerNav.Screen name={'dashboard'} component={DashboardScreen}/>
                     <DrawerNav.Screen name={'set-parking-spots'} component={SetParkingSpotScreen}/>
-                    <DrawerNav.Screen name={'se t-reserved-spots'} component={SetReservedSpotScreen}/>
+                    <DrawerNav.Screen name={'set-reserved-spots'} component={SetReservedSpotScreen}/>
                     <DrawerNav.Screen name={'set-tier-overview'} component={SetTierOverviewScreen}/>
                     <DrawerNav.Screen name={'add-tier'} component={AddTierScreen}/>
                 </> : null}
+
 
             </DrawerNav.Navigator>
 
@@ -80,7 +83,11 @@ const UserStackNav = createNativeStackNavigator();
 const AuthStack = () => {
     return (
         <>
-            <UserStackNav.Navigator>
+            <UserStackNav.Navigator
+                screenOptions={{
+                    headerShown: false,
+                }}
+            >
                 <UserStackNav.Screen name={'landing'} component={LandingScreen}/>
                 <UserStackNav.Screen name={'login'} component={LoginScreen}/>
                 <UserStackNav.Screen name={'sign-up'} component={SignupScreen}/>
@@ -96,9 +103,12 @@ export default function App() {
     })
     const {user} = useAuthentication()
     console.log(user?.isAdmin)
-    return (
-        <NavigationContainer>
-            {user ? <UserDrawer isAdmin={user?.isAdmin}/> : <AuthStack/>}
-        </NavigationContainer>
-    )
+    if(fontsLoaded){
+        return (
+            <NavigationContainer>
+                {user ? <UserDrawer isAdmin={user?.isAdmin}/> : <AuthStack/>}
+            </NavigationContainer>
+        )
+    }
+
 }

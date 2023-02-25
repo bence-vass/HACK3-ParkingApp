@@ -1,7 +1,8 @@
 import {addDoc, collection} from "firebase/firestore";
 import {db} from "../../firebaseConfig";
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {StatusBar} from "expo-status-bar";
+import Header from "../components/Header";
 
 
 const styles = StyleSheet.create({
@@ -16,13 +17,16 @@ const styles = StyleSheet.create({
 
 const LandingScreen = ({navigation}) => {
     return (
-        <View style={styles.container}>
-            <Text>Landing Screen</Text>
+        <View>
+            <Header displayBurger={false}/>
+            <SafeAreaView>
+                <Text>Landing Screen</Text>
 
-            <Button title={"Login"} onPress={()=> navigation.navigate('login')}/>
-            <Button title={"Sign up"} onPress={()=> navigation.navigate('sign-up')}/>
+                <Button title={"Login"} onPress={()=> navigation.navigate('login')}/>
+                <Button title={"Sign up"} onPress={()=> navigation.navigate('sign-up')}/>
 
-            <StatusBar style="auto"/>
+            </SafeAreaView>
+
         </View>
     );
 }

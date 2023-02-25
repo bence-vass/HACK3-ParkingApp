@@ -1,9 +1,13 @@
 import {addDoc, collection} from "firebase/firestore";
 import {auth, db} from "../../firebaseConfig";
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {StatusBar} from "expo-status-bar";
 import {signInWithEmailAndPassword } from "firebase/auth";
 import {useState} from "react";
+import Header from "../components/Header";
+import COLORS from "../utils/COLORS";
+import {DefaultTextInput} from "../components/Inputs";
+import {OrangeButton} from "../components/Buttons";
 
 
 const styles = StyleSheet.create({
@@ -39,16 +43,43 @@ const LoginScreen = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
-            <Text>Login Screen</Text>
+        <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex: 1}}>
+            <Header displayBurger={false} displayBack={true} navigation={navigation}/>
+            <SafeAreaView style={{alignContent: 'center', justifyContent: 'center', flex:1}}>
+                <View style={{
+                    padding: 25,
+                    paddingBottom: 55,
+                    //backgroundColor: 'red',
 
-            <Text>Email</Text>
-            <TextInput onChangeText={setEmail} value={email} style={styles.input}/>
+                }}>
+                    <Text style={{
+                        //backgroundColor: 'blue',
+                        alignSelf: 'center',
+                        fontSize: 20,
+                        marginBottom: 15,
+                        color: COLORS.DARK_BLUE,
+                    }}>Email</Text>
+                    <DefaultTextInput onChange={setEmail} value={email}/>
 
-            <Text>Password</Text>
-            <TextInput onChangeText={setPassword} value={password} style={styles.input} secureTextEntry={true}/>
 
-            <Button title={"Login"} onPress={login}/>
+                    <Text style={{
+                        alignSelf: 'center',
+                        fontSize: 20,
+                        marginBottom: 15,
+                        marginTop: 50,
+                        color: COLORS.DARK_BLUE,
+                    }}>Password</Text>
+                    <DefaultTextInput onChangeText={setPassword} value={password} secureTextEntry={true}/>
+                    <OrangeButton title={"Login"} onPress={login} wrapperStyle={{
+                        width: 200,
+                        alignSelf: 'center',
+                        marginTop: 50,
+                    }}/>
+                </View>
+
+
+            </SafeAreaView>
+
 
         </View>
     );
