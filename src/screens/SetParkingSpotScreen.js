@@ -6,6 +6,7 @@ import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import {useEffect, useState} from "react";
 import {useIsFocused} from "@react-navigation/native";
+import Header from "../components/Header";
 
 
 const styles = StyleSheet.create({
@@ -47,7 +48,9 @@ const SetParkingSpotScreen = ({navigation}) => {
 
 
     return (
-        <View style={styles.container}>
+        <View>
+            <Header navigation={navigation}/>
+
             <Text>Parking Spot Screen</Text>
             <Text>Available Spots on Property</Text>
             <Text>{spots?.available ? spots.available : 0}</Text>

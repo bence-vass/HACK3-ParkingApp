@@ -1,6 +1,6 @@
 import {addDoc, collection} from "firebase/firestore";
 import {db, auth} from "../../firebaseConfig";
-import {Button, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {useAuthentication} from "../utils/hooks/useAuthentication";
@@ -37,18 +37,20 @@ const HomeScreen = ({navigation}) => {
     const {user} = useAuthentication()
 
     const [selectedSpot, setSelectedSpot] = useState({})
-
+    const [selectedDates, setSelectedDates] = useState()
 
     return (
         <View style={styles.container}>
             <Header navigation={navigation}/>
+            <ScrollView>
             <SafeAreaView edges={['bottom', 'left', 'right']}>
 
                 <View style={styles.userContainer}>
                     <Text style={{...styles.text, ...{fontSize: 18, marginBottom: 0}}}>Kovacs Istvan</Text>
                     {user?.email ? <Text style={{...styles.text, ...{fontSize: 10,}}}>{user.email}</Text> : null}
-                    <Text style={{...styles.text, ...{fontSize: 20,}}}>AA - AA - 123</Text>
-                    <Text style={{...styles.text, ...{fontSize: 20,}}}>állandó parkolóhely: A12</Text>
+                    <Text style={{...styles.text, ...{fontSize: 12,}}}>AA - AA - 123</Text>
+                    <Text style={{...styles.text, ...{fontSize: 16,}}}>Date</Text>
+                    <Text style={{...styles.text, ...{fontSize: 12,}}}>állandó parkolóhely: A12</Text>
 
                 </View>
 
@@ -66,18 +68,34 @@ const HomeScreen = ({navigation}) => {
                 }}>
 
                     <ParkingRow row={0} selected={selectedSpot} fn={setSelectedSpot}/>
-                    <View style={{marginBottom: 100}}/>
                     <ParkingRow row={1} selected={selectedSpot} fn={setSelectedSpot}/>
-                    <View style={{marginBottom: 100}}/>
-                    <ParkingRow row={2} selected={selectedSpot} fn={setSelectedSpot}/>
-                    <View style={{marginBottom: 80}}/>
+                    <ParkingRow row={2} selected={selectedSpot} fn={setSelectedSpot} last/>
 
 
                 </View>
 
 
-            </SafeAreaView>
+                <View style={{
+                    borderWidth: 3,
+                    borderRadius: 20,
+                    borderColor: COLORS.BLUE,
+                    margin: 13,
+                    padding: 13,
+                    alignItems: 'center',
+                    minHeight: 100,
+                    flexWrap: 'wrap',
+                    flexDirection: 'column',
+                }}>
 
+                    <ParkingRow row={0} selected={selectedSpot} fn={setSelectedSpot}/>
+                    <ParkingRow row={1} selected={selectedSpot} fn={setSelectedSpot}/>
+                    <ParkingRow row={2} selected={selectedSpot} fn={setSelectedSpot} last/>
+
+
+                </View>
+
+            </SafeAreaView>
+            </ScrollView>
 
         </View>
     );
@@ -117,14 +135,14 @@ const ParkingSpace = ({row, col, selected, fn, last}) => {
     )
 }
 
-const ParkingRow = ({row, fn, selected}) => {
+const ParkingRow = ({last, row, fn, selected}) => {
     return (
         <View style={{
             height: 100,
             minWidth: 30,
             flex: 1,
             flexDirection: 'row',
-            marginBottom: 20,
+            marginBottom: last ? 0 : 20,
         }}>
             <ParkingSpace row={row} col={0} fn={fn} selected={selected}/>
             <ParkingSpace row={row} col={1} fn={fn} selected={selected}/>

@@ -14,6 +14,7 @@ import {db, auth} from "../../firebaseConfig";
 import {Button, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {useEffect, useState} from "react";
+import Header from "../components/Header";
 
 
 const styles = StyleSheet.create({
@@ -39,7 +40,7 @@ const queryReservedSpots = query(
 )
 
 
-const SetReservedSpotScreen = () => {
+const SetReservedSpotScreen = ({navigation}) => {
     //const {user} = useAuthentication()
     const [counterReserved, setCounterReserved] = useState(0)
 
@@ -123,7 +124,9 @@ const SetReservedSpotScreen = () => {
 
     console.log('render set reser')
     return (
-        <View style={styles.container}>
+        <View>
+            <Header navigation={navigation}/>
+
             <Text>{counterReserved} out of {garage.available} available spots are reserved</Text>
             <TextInput onChangeText={onChangeText} value={email} style={styles.input}/>
             <Button title={"give user a spot"} onPress={giveSpotByEmail}/>

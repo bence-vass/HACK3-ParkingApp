@@ -17,6 +17,7 @@ import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import {Calendar, CalendarUtils, LocaleConfig} from "react-native-calendars";
 import {forwardRef, useCallback, useEffect, useRef, useState} from "react";
+import Header from "../components/Header";
 
 const styles = StyleSheet.create({
     container: {
@@ -117,6 +118,7 @@ const CalendarScreen = ({navigation}) => {
     console.log(tiers)
     return (
         <View>
+            <Header navigation={navigation}/>
 
 
             <Modal visible={modalVisibility}>

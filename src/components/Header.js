@@ -1,39 +1,33 @@
-import {Button, Platform, StyleSheet, Text, TouchableOpacity, View, StatusBar} from 'react-native';
+import {Button, Platform, StyleSheet, Text, TouchableOpacity, View, StatusBar, SafeAreaView} from 'react-native';
 import {StatusBar as ExpoStatusBar} from 'expo-status-bar';
 import COLORS from "../utils/COLORS";
 
-const HeaderContainerPadding = 20
+const HeaderContainerPadding = 30
 const styles = StyleSheet.create({
     headerContainer: {
         backgroundColor: COLORS.BLUE,
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight + HeaderContainerPadding : 0,
-        padding: HeaderContainerPadding,
         margin: 0,
 
     },
     headerName: {
-        flex: 1,
+        padding: HeaderContainerPadding,
+        justifyContent:'center',
+ //       paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight + HeaderContainerPadding : HeaderContainerPadding
     },
     headerText: {
         color: COLORS.WHITE,
         fontFamily: 'Helvetica Neue LT',
-        fontSize: 22,
+        fontSize: 25,
         textAlign: 'center',
-
     },
     hamburgerBg: {
-        backgroundColor: COLORS.WHITE,
-        width: 35,
-        height: 35,
-        left: 23,
-        top: Platform.OS === "android" ? StatusBar.currentHeight + HeaderContainerPadding : 0,
-        position: 'absolute',
-        borderRadius: 10,
+        position: "absolute",
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1
+        height: '100%',
+        marginLeft: 20,
     }
 
 });
@@ -42,22 +36,59 @@ const styles = StyleSheet.create({
 const Header = ({navigation}) => {
     return (
         <View style={styles.headerContainer}>
+            <SafeAreaView style={{
+                flex: 1,
+                marginTop: Platform.OS === 'android' ? StatusBar.currentHeight  : 0,
 
-            <View style={styles.headerName}>
-                <Text style={styles.headerText}>K&H parkURmoney</Text>
-            </View>
-            <View style={styles.hamburgerBg}>
-                <TouchableOpacity onPress={() => {
-                    navigation.openDrawer()
-                }} style={{position: 'relative', flex: 1, backgroundColor: 'pink'}}>
-                    <View style={{backgroundColor: 'red', flex:1}}>
-                        <Text/>
+            }}>
+                <View>
+                    <View style={styles.headerName}>
+                        <Text style={styles.headerText}>K&H parkURmoney</Text>
                     </View>
 
+                    <View style={styles.hamburgerBg}>
+                        <TouchableOpacity onPress={() => {
+                            navigation.openDrawer()
+                        }} style={{
+                            backgroundColor: COLORS.WHITE,
+                            width: 37,
+                            height: 37,
+                            borderRadius: 10,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                            <View>
+                                <View style={{
+                                    width:20,
+                                    height:3,
+                                    backgroundColor: '#8d8d8d',
+                                    borderRadius: 10,
+                                    marginBottom: 3,
+                                }}/>
+                                <View style={{
+                                    width:15,
+                                    height:3,
+                                    backgroundColor: '#8d8d8d',
+                                    borderRadius: 10,
+                                    marginBottom: 3,
+                                }}/>
+                                <View style={{
+                                    width:10,
+                                    height:3,
+                                    backgroundColor: '#8d8d8d',
+                                    borderRadius: 10,
+                                }}/>
 
 
-                </TouchableOpacity>
-            </View>
+                            </View>
+
+
+                        </TouchableOpacity>
+                    </View>
+                </View>
+
+
+            </SafeAreaView>
             <ExpoStatusBar/>
 
         </View>
@@ -77,5 +108,8 @@ export default Header
                             marginBottom: 3,
                             position: 'relative',
                         }}/>
+
+
+
 
  */

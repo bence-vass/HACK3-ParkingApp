@@ -4,6 +4,7 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import {StatusBar} from "expo-status-bar";
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
+import Header from "../components/Header";
 
 
 const styles = StyleSheet.create({
@@ -30,7 +31,9 @@ const sendData = async () => {
 const HomeScreen = ({navigation}) => {
     const {user} = useAuthentication()
     return (
-        <View style={styles.container}>
+        <View>
+            <Header navigation={navigation}/>
+
             <Text>Dashboard Screen</Text>
             {user?.email ? <Text>{user.email}</Text> : null}
 

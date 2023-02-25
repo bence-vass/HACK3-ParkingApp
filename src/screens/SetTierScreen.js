@@ -5,6 +5,7 @@ import {StatusBar} from "expo-status-bar";
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import {useEffect, useState} from "react";
+import Header from "../components/Header";
 
 
 const styles = StyleSheet.create({
@@ -48,7 +49,8 @@ export const SetTierOverviewScreen = ({navigation}) => {
 
 
     return (
-        <View style={styles.container}>
+        <View>
+            <Header navigation={navigation}/>
             <Text>Set Tier Screen</Text>
             <FlatList data={tiers} renderItem={({item}) => <TierItem item={item}/>}
                       keyExtractor={(item, index) => 'key' + index}/>
@@ -106,7 +108,9 @@ export const AddTierScreen = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
+        <View>
+            <Header navigation={navigation}/>
+
             <Text>ADD Tier Screen (Tier:{tierCounter})</Text>
             <Text>Name</Text>
             <TextInput onChangeText={setName} value={name} style={styles.input}/>
