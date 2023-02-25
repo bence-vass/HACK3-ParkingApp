@@ -13,7 +13,7 @@ import DefaultWrapper from "../components/DefaultWrapper";
 import {useIsFocused} from "@react-navigation/native";
 import {GoButton} from "../components/Buttons";
 import Chart from "../components/Chart";
-
+import {getRandomInt} from "../utils/randomGenerator";
 
 const styles = StyleSheet.create({
     text: {
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     }
 });
 
+const spot = getRandomInt(0,500)
 
 const HomeScreen = ({navigation}) => {
     const {user} = useAuthentication()
@@ -85,10 +86,9 @@ const HomeScreen = ({navigation}) => {
                     </View>
                     {Object.keys(selectedSpot).length === 0 ? <DefaultWrapper>
                         <Text>Az árfolyamhoz válassza ki a parkolóhelyet</Text>
-                    </DefaultWrapper> : null}
+                    </DefaultWrapper> : <Chart spot={spot}/> }
 
-                    <Chart/>
-                    <SellBuy/>
+                    <SellBuy spot={spot}/>
                     <GoButton/>
 
                 </SafeAreaView>

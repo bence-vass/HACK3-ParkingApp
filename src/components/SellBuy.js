@@ -1,6 +1,7 @@
 import {Text, TouchableOpacity, View, StyleSheet} from "react-native";
 import COLORS from "../utils/COLORS";
 import DefaultWrapper from "./DefaultWrapper";
+import {getRandomInt} from "../utils/randomGenerator";
 
 
 const styles = StyleSheet.create({
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
 
 })
 
-const SellBuy = ({haveTicket}) => {
+const SellBuy = ({haveTicket, spot}) => {
     return (
         <DefaultWrapper style={{
             flexDirection: 'row',
@@ -37,13 +38,13 @@ const SellBuy = ({haveTicket}) => {
 
                 }}>
                     <View style={styles.valueContainer}>
-                        <Text>X15</Text>
+                        <Text>{spot ? "X"+spot : "Spot"}</Text>
                     </View>
                     <View style={styles.valueContainer}>
-                        <Text>X15</Text>
+                        <Text>{spot ? getRandomInt(1, 20)+ " DP" : "Credit"}</Text>
                     </View>
                     <View style={styles.valueContainer}>
-                        <Text>X15</Text>
+                        <Text>{spot ? "23.02.28" : "Date"}</Text>
                     </View>
                 </View>
             </View>
@@ -62,7 +63,7 @@ const SellBuy = ({haveTicket}) => {
                         borderRadius: 7,
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: 7,
+                        padding: 10,
                     }}>
                         <Text style={{color: COLORS.WHITE}}>Adás/Vétel</Text>
                     </TouchableOpacity>
