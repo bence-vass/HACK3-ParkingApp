@@ -1,5 +1,5 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createDrawerNavigator, DrawerContentScrollView, DrawerItem, DrawerItemList} from '@react-navigation/drawer';
 import { useFonts } from 'expo-font';
 
 import {NavigationContainer} from "@react-navigation/native"
@@ -19,6 +19,7 @@ import SetReservedSpotScreen from "./src/screens/SetReservedSpotScreen";
 import {SetTierOverviewScreen, AddTierScreen} from "./src/screens/SetTierScreen";
 import CalendarScreen from "./src/screens/CalendarScreen";
 import ProfileScreen from "./src/screens/ProfileScreen";
+import LeaderboardScreen from "./src/screens/LeaderboardScreen";
 
 const AuthStackNav = createNativeStackNavigator();
 
@@ -49,6 +50,8 @@ const UserStack = ({isAdmin}) => {
 }
 
 
+
+
 const DrawerNav = createDrawerNavigator()
 const UserDrawer = ({isAdmin}) => {
     return (<>
@@ -57,17 +60,54 @@ const UserDrawer = ({isAdmin}) => {
                     headerShown: false,
                 }}
             >
-                <DrawerNav.Screen name={'home'} title={'Home'} component={HomeScreen}/>
-                <DrawerNav.Screen name={'calendar'} component={CalendarScreen}/>
-                <DrawerNav.Screen name={'profile'} component={ProfileScreen}/>
+                <DrawerNav.Screen name={'home'}
+                                  options={{
+                                      drawerLabel: 'Home',
+                                  }}
+                                  component={HomeScreen}/>
+                <DrawerNav.Screen name={'calendar'}
+                                  options={{
+                                      drawerLabel: 'Calendar',
+                                  }}
+                                  component={CalendarScreen}/>
+                <DrawerNav.Screen name={'profile'}
+                                  options={{
+                                      drawerLabel: 'Profile',
+                                  }}
+                                  component={ProfileScreen}/>
+                <DrawerNav.Screen name={'leaderboard'}
+                                  options={{
+                                      drawerLabel: 'Scoreboard',
+                                  }}
+                                  component={LeaderboardScreen}/>
 
                 {isAdmin ? <>
 
-                    <DrawerNav.Screen name={'dashboard'} component={DashboardScreen}/>
-                    <DrawerNav.Screen name={'set-parking-spots'} component={SetParkingSpotScreen}/>
-                    <DrawerNav.Screen name={'set-reserved-spots'} component={SetReservedSpotScreen}/>
-                    <DrawerNav.Screen name={'set-tier-overview'} component={SetTierOverviewScreen}/>
-                    <DrawerNav.Screen name={'add-tier'} component={AddTierScreen}/>
+                    <DrawerNav.Screen name={'dashboard'}
+                                      options={{
+                                          drawerLabel: 'Dashboard',
+                                      }}
+                                      component={DashboardScreen}/>
+                    <DrawerNav.Screen name={'set-parking-spots'}
+                                      options={{
+                                          drawerLabel: 'My Garage',
+                                      }}
+                                      component={SetParkingSpotScreen}/>
+                    <DrawerNav.Screen name={'set-reserved-spots'}
+                                      options={{
+                                          drawerLabel: 'Set Reserved Spots',
+                                      }}
+                                      component={SetReservedSpotScreen}/>
+                    <DrawerNav.Screen name={'set-tier-overview'}
+                                      options={{
+                                          drawerLabel: 'Tier Settings',
+                                      }}
+                                      component={SetTierOverviewScreen}/>
+                    <DrawerNav.Screen name={'add-tier'}
+                                      options={{
+                                          drawerLabel: 'Create New Tier',
+                                      }}
+                                      component={AddTierScreen}/>
                 </> : null}
 
 
