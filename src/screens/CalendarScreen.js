@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
 
 const Arrow = ({direction}) => {
     const text = direction === 'left' ? '<<' : '>>';
-    if(direction === 'left'){
+    if (direction === 'left') {
 
     } else {
 
@@ -49,13 +49,13 @@ const CalendarScreen = ({navigation}) => {
     const deltaDAYS = 14
     const {user} = useAuthentication()
     const [beginDate, setBeginDate] = useState()
-   /* const [selectedDates, setSelectedDates] = useState({
-        "2023-02-24": {
-            "color": "blue",
-            "endingDay": false,
-            "startingDay": true
-        }, "2023-02-25": {"color": "blue", "endingDay": true, "startingDay": false}
-    })*/
+    /* const [selectedDates, setSelectedDates] = useState({
+         "2023-02-24": {
+             "color": "blue",
+             "endingDay": false,
+             "startingDay": true
+         }, "2023-02-25": {"color": "blue", "endingDay": true, "startingDay": false}
+     })*/
 
     const [selectedDates, setSelectedDates] = useState({})
     const [reservationsDates, setReservationsDates] = useState({})
@@ -126,24 +126,51 @@ const CalendarScreen = ({navigation}) => {
     }
     console.log(tiers)
     return (
-        <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex:1}}>
+        <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex: 1}}>
             <Header navigation={navigation}/>
 
             <Modal visible={modalVisibility}>
-                <SafeAreaView>
-                    <Text>Are you sure?</Text>
+                <SafeAreaView style={{flex: 1}}>
+                    <View style={{
+                        backgroundColor: COLORS.BLUE,
+                        flex: 1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <Text style={{
+                            fontSize: 30,
+                            color: COLORS.WHITE,
+                            marginBottom: 30,
+                        }}>Are you sure?</Text>
 
-                    <Button title={'nope'} onPress={() => {
-                        setSelectedTier()
-                        setModalVisibility(false)
-                    }}/>
-                    <Button title={"yes"} onPress={async () => {
-                        //console.log(selectedTier, selectedDates,)
-                        await buySpot()
 
-                        navigation.navigate('home')
-                        setModalVisibility(false)
-                    }}/>
+                        <TouchableOpacity style={{
+                            backgroundColor: COLORS.DARK_BLUE,
+                            borderRadius: 7,
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            paddingHorizontal: 20,
+                            paddingVertical: 10,
+                        }} onPress={() => {
+                            setSelectedTier()
+                            setModalVisibility(false)
+                        }}>
+                            <Text style={{
+                                color: COLORS.WHITE,
+                                fontSize: 22,
+
+                            }}>No</Text>
+                        </TouchableOpacity>
+
+
+                        <OrangeButton title={"Yes"} onPress={async () => {
+                            //console.log(selectedTier, selectedDates,)
+                            await buySpot()
+
+                            navigation.navigate('home')
+                            setModalVisibility(false)
+                        }} wrapperStyle={{paddingHorizontal: 100, paddingVertical: 30, marginTop: 30}}/>
+                    </View>
                 </SafeAreaView>
             </Modal>
 
@@ -192,7 +219,13 @@ const CalendarScreen = ({navigation}) => {
                 }}
                 onDayLongPress={day => {
                     setBeginDate(day)
-                    setSelectedDates({[day.dateString]: {startingDay: true, endingDay: true, color: COLORS.BRIGHT_BLUE}})
+                    setSelectedDates({
+                        [day.dateString]: {
+                            startingDay: true,
+                            endingDay: true,
+                            color: COLORS.BRIGHT_BLUE
+                        }
+                    })
                 }}
                 monthFormat={'yyyy MMM'}
                 onMonthChange={month => {
@@ -205,7 +238,7 @@ const CalendarScreen = ({navigation}) => {
                 onPressArrowLeft={subtractMonth => subtractMonth()}
                 onPressArrowRight={addMonth => addMonth()}
             />
-            <ScrollView style={{padding:20,}}>
+            <ScrollView style={{padding: 20,}}>
 
                 <Text>Select Tier</Text>
                 {tiers && tiers.length !== 0 ? tiers.map((v, i) => {
@@ -214,7 +247,7 @@ const CalendarScreen = ({navigation}) => {
                         <View key={v.id}>
                             <Text>{v.name} / {v.id}</Text>
                             <Text>Current Price {v.current_price}</Text>
-                            <OrangeButton title={'Select'} onPress={()=>{
+                            <OrangeButton title={'Reserve'} onPress={() => {
                                 setSelectedTier(v.id)
                                 setModalVisibility(true)
                             }} wrapperStyle={{marginBottom: 25,}}/>

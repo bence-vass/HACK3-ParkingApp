@@ -9,6 +9,7 @@ import Header from "../components/Header";
 import {useIsFocused} from "@react-navigation/native";
 import COLORS from "../utils/COLORS";
 import {OrangeButton} from "../components/Buttons";
+import {DefaultTextInput} from "../components/Inputs";
 
 
 const styles = StyleSheet.create({
@@ -25,6 +26,12 @@ const styles = StyleSheet.create({
         padding: 10,
         width: 300,
     },
+    text: {
+        color: COLORS.DARK_BLUE,
+        fontSize: 16,
+        marginBottom: 10,
+        marginTop: 15
+    }
 });
 
 
@@ -119,18 +126,20 @@ export const AddTierScreen = ({navigation}) => {
         <View style={{flex: 1, backgroundColor: COLORS.BRIGHT_BLUE}}>
             <Header navigation={navigation}/>
             <SafeAreaView>
-                <Text>ADD Tier Screen (Tier:{tierCounter})</Text>
-                <Text>Name</Text>
-                <TextInput onChangeText={setName} value={name} style={styles.input}/>
+                <View style={{padding: 20}}>
+                <Text style={{...styles.text,...{fontSize: 20, fontWeight: 'bold'}}}>Create Tier (Nr.:{tierCounter})</Text>
+                <Text style={styles.text}>Name</Text>
+                <DefaultTextInput onChangeText={setName} value={name}/>
 
-                <Text>Description</Text>
-                <TextInput onChangeText={setDesc} value={desc} style={styles.input}/>
+                <Text style={styles.text}>Description</Text>
+                <DefaultTextInput onChangeText={setDesc} value={desc}/>
 
-                <Text>Price</Text>
-                <TextInput onChangeText={setPrice} value={price} style={styles.input} keyboardType={'numeric'}
+                <Text style={styles.text}>Price</Text>
+                <DefaultTextInput onChangeText={setPrice} value={price} keyboardType={'numeric'}
                            numeric={true}/>
 
-                <Button title={"add tier"} onPress={addTier}/>
+                <OrangeButton title={"Create Tier"} onPress={addTier} wrapperStyle={{marginVertical: 35}}/>
+                </View>
             </SafeAreaView>
 
         </View>
