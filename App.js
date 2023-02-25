@@ -1,4 +1,7 @@
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {createDrawerNavigator} from '@react-navigation/drawer';
+import { useFonts } from 'expo-font';
+
 import {NavigationContainer} from "@react-navigation/native"
 import {doc, getDoc} from "firebase/firestore";
 import {db} from "./firebaseConfig";
@@ -21,7 +24,7 @@ const AuthStackNav = createNativeStackNavigator();
 const UserStack = ({isAdmin}) => {
 
     return (
-        <NavigationContainer>
+        <>
             <AuthStackNav.Navigator
                 screenOptions={{
                     headerShown: false,
@@ -40,39 +43,62 @@ const UserStack = ({isAdmin}) => {
                 </> : null}
 
             </AuthStackNav.Navigator>
-        </NavigationContainer>
+        </>
     )
 }
+
+
+const DrawerNav = createDrawerNavigator()
+const UserDrawer = ({isAdmin}) => {
+    return (<>
+            <DrawerNav.Navigator
+                screenOptions={{
+                    headerShown: false,
+                }}
+            >
+                <DrawerNav.Screen name={'home'} component={HomeScreen}/>
+                <DrawerNav.Screen name={'calendar'} component={CalendarScreen}/>
+
+                {isAdmin ? <>
+
+                    <DrawerNav.Screen name={'dashboard'} component={DashboardScreen}/>
+                    <DrawerNav.Screen name={'set-parking-spots'} component={SetParkingSpotScreen}/>
+                    <DrawerNav.Screen name={'set-reserved-spots'} component={SetReservedSpotScreen}/>
+                    <DrawerNav.Screen name={'set-tier-overview'} component={SetTierOverviewScreen}/>
+                    <DrawerNav.Screen name={'add-tier'} component={AddTierScreen}/>
+                </> : null}
+
+            </DrawerNav.Navigator>
+
+        </>
+    )
+}
+
 
 const UserStackNav = createNativeStackNavigator();
 
 const AuthStack = () => {
     return (
-        <NavigationContainer>
+        <>
             <UserStackNav.Navigator>
                 <UserStackNav.Screen name={'landing'} component={LandingScreen}/>
                 <UserStackNav.Screen name={'login'} component={LoginScreen}/>
                 <UserStackNav.Screen name={'sign-up'} component={SignupScreen}/>
 
             </UserStackNav.Navigator>
-        </NavigationContainer>
+        </>
     )
 }
 
 export default function App() {
+    const [fontsLoaded] = useFonts({
+        'Helvetica Neue LT': require('./assets/fonts/HelveticaNeueLTProMd.otf')
+    })
     const {user} = useAuthentication()
     console.log(user?.isAdmin)
-    if(user){
-        return (
-            <>
-                <UserStack isAdmin={user?.isAdmin}/>
-            </>
-        )
-    } else {
-        return (
-            <>
-                <AuthStack/>
-            </>
-        )
-    }
+    return (
+        <NavigationContainer>
+            {user ? <UserDrawer isAdmin={user?.isAdmin}/> : <AuthStack/>}
+        </NavigationContainer>
+    )
 }

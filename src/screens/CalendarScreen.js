@@ -116,7 +116,7 @@ const CalendarScreen = ({navigation}) => {
     }
     console.log(tiers)
     return (
-        <SafeAreaView>
+        <View>
 
 
             <Modal visible={modalVisibility}>
@@ -215,7 +215,7 @@ const CalendarScreen = ({navigation}) => {
                 }) : <Text>Loading</Text>}
             </View>
 
-        </SafeAreaView>
+        </View>
     );
 }
 
