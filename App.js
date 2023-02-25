@@ -63,7 +63,7 @@ const UserDrawer = ({isAdmin}) => {
 
                     <DrawerNav.Screen name={'dashboard'} component={DashboardScreen}/>
                     <DrawerNav.Screen name={'set-parking-spots'} component={SetParkingSpotScreen}/>
-                    <DrawerNav.Screen name={'set-reserved-spots'} component={SetReservedSpotScreen}/>
+                    <DrawerNav.Screen name={'se t-reserved-spots'} component={SetReservedSpotScreen}/>
                     <DrawerNav.Screen name={'set-tier-overview'} component={SetTierOverviewScreen}/>
                     <DrawerNav.Screen name={'add-tier'} component={AddTierScreen}/>
                 </> : null}

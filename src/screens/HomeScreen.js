@@ -1,4 +1,4 @@
-import {addDoc, collection} from "firebase/firestore";
+import {addDoc, collection, doc, getDoc} from "firebase/firestore";
 import {db, auth} from "../../firebaseConfig";
 import {Button, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -7,7 +7,11 @@ import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import Header from "../components/Header";
 import COLORS from "../utils/COLORS";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import SellBuy from "../components/SellBuy";
+import DefaultWrapper from "../components/DefaultWrapper";
+import {useIsFocused} from "@react-navigation/native";
+import {GoButton} from "../components/Buttons";
 
 
 const styles = StyleSheet.create({
@@ -37,64 +41,55 @@ const HomeScreen = ({navigation}) => {
     const {user} = useAuthentication()
 
     const [selectedSpot, setSelectedSpot] = useState({})
-    const [selectedDates, setSelectedDates] = useState()
+    const [selectedDates, setSelectedDates] = useState({})
 
+    const isFocused = useIsFocused()
+    useEffect(() => {
+        setSelectedSpot({})
+        setSelectedDates({})
+    }, [isFocused])
     return (
         <View style={styles.container}>
             <Header navigation={navigation}/>
             <ScrollView>
-            <SafeAreaView edges={['bottom', 'left', 'right']}>
+                <SafeAreaView edges={['bottom', 'left', 'right']}>
 
-                <View style={styles.userContainer}>
-                    <Text style={{...styles.text, ...{fontSize: 18, marginBottom: 0}}}>Kovacs Istvan</Text>
-                    {user?.email ? <Text style={{...styles.text, ...{fontSize: 10,}}}>{user.email}</Text> : null}
-                    <Text style={{...styles.text, ...{fontSize: 12,}}}>AA - AA - 123</Text>
-                    <Text style={{...styles.text, ...{fontSize: 16,}}}>Date</Text>
-                    <Text style={{...styles.text, ...{fontSize: 12,}}}>állandó parkolóhely: A12</Text>
+                    <View style={styles.userContainer}>
+                        <Text style={{...styles.text, ...{fontSize: 18, marginBottom: 0}}}>Kovacs Istvan</Text>
+                        {user?.email ? <Text style={{...styles.text, ...{fontSize: 10,}}}>{user.email}</Text> : null}
+                        <Text style={{...styles.text, ...{fontSize: 12,}}}>AA - AA - 123</Text>
+                        <Text style={{...styles.text, ...{fontSize: 16,}}}>2023-02-28</Text>
+                        <Text style={{...styles.text, ...{fontSize: 12,}}}>állandó parkolóhely: A12</Text>
 
-                </View>
-
-
-                <View style={{
-                    borderWidth: 3,
-                    borderRadius: 20,
-                    borderColor: COLORS.BLUE,
-                    margin: 13,
-                    padding: 13,
-                    alignItems: 'center',
-                    minHeight: 100,
-                    flexWrap: 'wrap',
-                    flexDirection: 'column',
-                }}>
-
-                    <ParkingRow row={0} selected={selectedSpot} fn={setSelectedSpot}/>
-                    <ParkingRow row={1} selected={selectedSpot} fn={setSelectedSpot}/>
-                    <ParkingRow row={2} selected={selectedSpot} fn={setSelectedSpot} last/>
+                    </View>
 
 
-                </View>
+                    <View style={{
+                        borderWidth: 3,
+                        borderRadius: 15,
+                        borderColor: COLORS.BLUE,
+                        margin: 13,
+                        padding: 13,
+                        alignItems: 'center',
+                        minHeight: 100,
+                        flexWrap: 'wrap',
+                        flexDirection: 'column',
+                    }}>
+
+                        <ParkingRow row={0} selected={selectedSpot} fn={setSelectedSpot}/>
+                        <ParkingRow row={1} selected={selectedSpot} fn={setSelectedSpot}/>
+                        <ParkingRow row={2} selected={selectedSpot} fn={setSelectedSpot} last/>
 
 
-                <View style={{
-                    borderWidth: 3,
-                    borderRadius: 20,
-                    borderColor: COLORS.BLUE,
-                    margin: 13,
-                    padding: 13,
-                    alignItems: 'center',
-                    minHeight: 100,
-                    flexWrap: 'wrap',
-                    flexDirection: 'column',
-                }}>
+                    </View>
+                    {Object.keys(selectedSpot).length === 0 ? <DefaultWrapper>
+                        <Text>Az ár változásához válassza ki a parkolóhelyet</Text>
+                    </DefaultWrapper> : null}
+                    <SellBuy/>
 
-                    <ParkingRow row={0} selected={selectedSpot} fn={setSelectedSpot}/>
-                    <ParkingRow row={1} selected={selectedSpot} fn={setSelectedSpot}/>
-                    <ParkingRow row={2} selected={selectedSpot} fn={setSelectedSpot} last/>
+                    <GoButton/>
 
-
-                </View>
-
-            </SafeAreaView>
+                </SafeAreaView>
             </ScrollView>
 
         </View>
@@ -121,14 +116,31 @@ const ParkingSpace = ({row, col, selected, fn, last}) => {
             minWidth: 40,
             height: 100,
             flex: 1,
-        }} onPress={() => fn({row:row ,col:col})} activeOpacity={1}>
+            justifyContent: 'center',
+            alignItems: 'center',
+        }} onPress={() => fn({row: row, col: col})} activeOpacity={1}>
             <View>
-                {selected && (selected.row === row && selected.col === col) ? <View style={{
-                    height: 10,
-                    width: 10,
-                    backgroundColor: 'red',
+                {selected && (selected.row === row && selected.col === col) ?
+                    <View>
+                        <View style={{
+                            backgroundColor: COLORS.ORANGE,
+                            width: 4,
+                            height: 50,
+                            borderRadius: 3,
+                            transform: [{rotate: '45deg'}],
+                            position: 'absolute'
+                        }}/>
+                        <View style={{
+                            backgroundColor: COLORS.ORANGE,
+                            width: 4,
+                            height: 50,
+                            borderRadius: 3,
+                            transform: [{rotate: '-45deg'}]
+                        }}/>
+                    </View>
+                    : null}
 
-                }}/> : null}
+
             </View>
         </TouchableOpacity>
 
