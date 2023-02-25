@@ -7,9 +7,10 @@ import {getAuth, signOut} from "firebase/auth";
 import {useEffect, useState} from "react";
 import Header from "../components/Header";
 import {useIsFocused} from "@react-navigation/native";
-import COLORS from "../utils/COLORS";
+import COLORS, {TIER_COLORS} from "../utils/COLORS";
 import {OrangeButton} from "../components/Buttons";
 import {DefaultTextInput} from "../components/Inputs";
+import Tier from "../components/Tier";
 
 
 const styles = StyleSheet.create({
@@ -62,8 +63,17 @@ export const SetTierOverviewScreen = ({navigation}) => {
             <Header navigation={navigation}/>
             <SafeAreaView>
                 <View style={{padding: 20}}>
-                    <Text>Set Tier Screen</Text>
-                    <FlatList data={tiers} renderItem={({item}) => <TierItem item={item}/>}
+                    <Text style={{
+                        fontSize: 22,
+                        color: COLORS.DARK_BLUE,
+                        marginBottom: 10,
+                        fontWeight: 'bold'
+                    }}>Szintek:</Text>
+                    <FlatList data={tiers}
+                              renderItem={({item}) => {
+                                console.log(item)
+                                  return <Tier color={TIER_COLORS[item.rank - 1]} price={item.current_price} name={item.name}/>
+                              }}
                               keyExtractor={(item, index) => 'key' + index}/>
                     <OrangeButton title={"Új szint létrehozása"} onPress={() => navigation.navigate('add-tier')}/>
                 </View>
@@ -74,12 +84,7 @@ export const SetTierOverviewScreen = ({navigation}) => {
 }
 
 
-const TierItem = ({item}) => (
-    <View>
-        <Text>{item.name}</Text>
-        <Text>{item.price} Credit</Text>
-    </View>
-)
+
 
 
 const myGarageDocRef = doc(db, 'garages', 'my-garage')
@@ -127,18 +132,19 @@ export const AddTierScreen = ({navigation}) => {
             <Header navigation={navigation}/>
             <SafeAreaView>
                 <View style={{padding: 20}}>
-                <Text style={{...styles.text,...{fontSize: 20, fontWeight: 'bold'}}}>Új szint (Nr.:{tierCounter})</Text>
-                <Text style={styles.text}>Megnevezés</Text>
-                <DefaultTextInput onChangeText={setName} value={name}/>
+                    <Text style={{...styles.text, ...{fontSize: 20, fontWeight: 'bold'}}}>Új szint
+                        (Nr.:{tierCounter})</Text>
+                    <Text style={styles.text}>Megnevezés</Text>
+                    <DefaultTextInput onChangeText={setName} value={name}/>
 
-                <Text style={styles.text}>Leírás</Text>
-                <DefaultTextInput onChangeText={setDesc} value={desc}/>
+                    <Text style={styles.text}>Leírás</Text>
+                    <DefaultTextInput onChangeText={setDesc} value={desc}/>
 
-                <Text style={styles.text}>Alapár</Text>
-                <DefaultTextInput onChangeText={setPrice} value={price} keyboardType={'numeric'}
-                           numeric={true}/>
+                    <Text style={styles.text}>Alapár</Text>
+                    <DefaultTextInput onChangeText={setPrice} value={price} keyboardType={'numeric'}
+                                      numeric={true}/>
 
-                <OrangeButton title={"Új szint létrehozása"} onPress={addTier} wrapperStyle={{marginVertical: 35}}/>
+                    <OrangeButton title={"Új szint létrehozása"} onPress={addTier} wrapperStyle={{marginVertical: 35}}/>
                 </View>
             </SafeAreaView>
 

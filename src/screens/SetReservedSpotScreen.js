@@ -198,9 +198,9 @@ const User = ({item, revokeFunction}) => {
                 }}>{item.email}</Text>
                 <Text style={{
                     color: COLORS.WHITE,
-                    fontSize: 12,
+                    fontSize: 10,
                     //backgroundColor: 'green'
-                }}>{item.id}</Text>
+                }}>ID: {item.id}</Text>
             </View>
             <View style={{
                 //backgroundColor: 'pink',

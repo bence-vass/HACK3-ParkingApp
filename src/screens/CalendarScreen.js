@@ -18,9 +18,10 @@ import {getAuth, signOut} from "firebase/auth";
 import {Calendar, CalendarUtils, LocaleConfig} from "react-native-calendars";
 import {forwardRef, useCallback, useEffect, useRef, useState} from "react";
 import Header from "../components/Header";
-import COLORS from "../utils/COLORS";
+import COLORS, {TIER_COLORS} from "../utils/COLORS";
 import {OrangeButton} from "../components/Buttons";
 import {useIsFocused} from "@react-navigation/native";
+import Tier from "../components/Tier";
 
 const styles = StyleSheet.create({
     container: {
@@ -169,6 +170,7 @@ const CalendarScreen = ({navigation}) => {
 
                             navigation.navigate('home')
                             setModalVisibility(false)
+                            setSelectedTier()
                         }} wrapperStyle={{paddingHorizontal: 100, paddingVertical: 30, marginTop: 30}}/>
                     </View>
                 </SafeAreaView>
@@ -238,12 +240,13 @@ const CalendarScreen = ({navigation}) => {
                 onPressArrowLeft={subtractMonth => subtractMonth()}
                 onPressArrowRight={addMonth => addMonth()}
             />
-            <ScrollView style={{padding: 20,}}>
+            <ScrollView style={{paddingHorizontal: 20, paddingVertical: 10}}>
 
-                <Text>Select Tier</Text>
+
+                <Text style={{color: COLORS.DARK_BLUE, fontSize:12, marginBottom: 10}}>Válasszon szintet:</Text>
                 {tiers && tiers.length !== 0 ? tiers.map((v, i) => {
                     //console.log(i, v)
-                    return (
+                    /*return (
                         <View key={v.id}>
                             <Text>{v.name} / {v.id}</Text>
                             <Text>Current Price {v.current_price}</Text>
@@ -253,7 +256,21 @@ const CalendarScreen = ({navigation}) => {
                             }} wrapperStyle={{marginBottom: 25,}}/>
 
                         </View>
-                    )
+                    )*/
+                    let color = null
+                    if(i <= 2){
+                        color = TIER_COLORS[i]
+                    }
+                    return (
+                        <Tier
+                            onPress={() => {
+                                setSelectedTier(v.id)
+                                setModalVisibility(true)
+                            }}
+                            name={v.name}
+                            price={v.current_price}
+                            color={color}
+                        />)
 
                 }) : <Text>Loading</Text>}
             </ScrollView>
@@ -263,3 +280,5 @@ const CalendarScreen = ({navigation}) => {
 }
 
 export default CalendarScreen;
+
+

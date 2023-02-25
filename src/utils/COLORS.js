@@ -14,3 +14,5 @@ export default COLORS
 
     helvetica Arial
 *  */
+
+export const TIER_COLORS = ['#916E2A', '#949091', '#937958']
