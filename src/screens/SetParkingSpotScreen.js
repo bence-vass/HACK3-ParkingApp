@@ -1,20 +1,20 @@
 import {addDoc, collection, getDoc, doc} from "firebase/firestore";
 import {db, auth} from "../../firebaseConfig";
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {StatusBar} from "expo-status-bar";
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import {useEffect, useState} from "react";
 import {useIsFocused} from "@react-navigation/native";
 import Header from "../components/Header";
+import COLORS from "../utils/COLORS";
+import {OrangeButton} from "../components/Buttons";
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
+    text: {
+        color: COLORS.DARK_BLUE,
+        fontSize: 18,
     },
 });
 
@@ -43,21 +43,25 @@ const SetParkingSpotScreen = ({navigation}) => {
                 setSpots(data)
             }
         }
+
         fetchData();
     }, [isFocused])
 
 
     return (
-        <View>
+        <View style={{flex: 1, backgroundColor: COLORS.LIGHT_BLUE}}>
             <Header navigation={navigation}/>
+            <SafeAreaView>
+                <View style={{padding: 20, alignItems: 'center'}}>
+                    <Text style={styles.text}>Available Spots on Property</Text>
+                    <Text style={styles.text}>{spots?.available ? spots.available : 0}</Text>
+                    <Text style={styles.text}>Reserved Spots</Text>
+                    <Text style={{...styles.text, ...{marginBottom: 20}}}>{spots?.reserved ? spots.reserved : 0}</Text>
+                    <OrangeButton title={"Setup Reserved Spots"}
+                                  onPress={() => navigation.navigate('set-reserved-spots')}/>
+                </View>
+            </SafeAreaView>
 
-            <Text>Parking Spot Screen</Text>
-            <Text>Available Spots on Property</Text>
-            <Text>{spots?.available ? spots.available : 0}</Text>
-            <Text>Reserved Spots</Text>
-            <Text>{spots?.reserved ? spots.reserved : 0}</Text>
-            <Button title={"set reserved"} onPress={()=>navigation.navigate('set-reserved-spots')}/>
-            <StatusBar style="auto"/>
         </View>
     );
 }

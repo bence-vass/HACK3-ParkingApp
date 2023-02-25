@@ -1,11 +1,14 @@
 import {orderBy, addDoc, collection, getDoc, doc, query, getDocs, getCountFromServer, setDoc} from "firebase/firestore";
 import {db, auth} from "../../firebaseConfig";
-import {Button, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, FlatList, SafeAreaView, StyleSheet, Text, TextInput, View} from 'react-native';
 import {StatusBar} from "expo-status-bar";
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import {useEffect, useState} from "react";
 import Header from "../components/Header";
+import {useIsFocused} from "@react-navigation/native";
+import COLORS from "../utils/COLORS";
+import {OrangeButton} from "../components/Buttons";
 
 
 const styles = StyleSheet.create({
@@ -23,7 +26,6 @@ const styles = StyleSheet.create({
         width: 300,
     },
 });
-
 
 
 export const SetTierOverviewScreen = ({navigation}) => {
@@ -49,12 +51,17 @@ export const SetTierOverviewScreen = ({navigation}) => {
 
 
     return (
-        <View>
+        <View style={{flex: 1, backgroundColor: COLORS.BRIGHT_BLUE}}>
             <Header navigation={navigation}/>
-            <Text>Set Tier Screen</Text>
-            <FlatList data={tiers} renderItem={({item}) => <TierItem item={item}/>}
-                      keyExtractor={(item, index) => 'key' + index}/>
-            <Button title={"add tier"} onPress={() => navigation.navigate('add-tier')}/>
+            <SafeAreaView>
+                <View style={{padding: 20}}>
+                    <Text>Set Tier Screen</Text>
+                    <FlatList data={tiers} renderItem={({item}) => <TierItem item={item}/>}
+                              keyExtractor={(item, index) => 'key' + index}/>
+                    <OrangeButton title={"Add Tier"} onPress={() => navigation.navigate('add-tier')}/>
+                </View>
+            </SafeAreaView>
+
         </View>
     );
 }
@@ -76,6 +83,7 @@ export const AddTierScreen = ({navigation}) => {
     const [name, setName] = useState('Gold Tier')
     const [desc, setDesc] = useState('you cool')
     const [price, setPrice] = useState('1')
+    const isFocused = useIsFocused()
 
     async function fetchData() {
         const tiersSnap = await getCountFromServer(
@@ -89,7 +97,7 @@ export const AddTierScreen = ({navigation}) => {
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [isFocused])
 
     const addTier = async () => {
         try {
@@ -108,21 +116,23 @@ export const AddTierScreen = ({navigation}) => {
     }
 
     return (
-        <View>
+        <View style={{flex: 1, backgroundColor: COLORS.BRIGHT_BLUE}}>
             <Header navigation={navigation}/>
+            <SafeAreaView>
+                <Text>ADD Tier Screen (Tier:{tierCounter})</Text>
+                <Text>Name</Text>
+                <TextInput onChangeText={setName} value={name} style={styles.input}/>
 
-            <Text>ADD Tier Screen (Tier:{tierCounter})</Text>
-            <Text>Name</Text>
-            <TextInput onChangeText={setName} value={name} style={styles.input}/>
+                <Text>Description</Text>
+                <TextInput onChangeText={setDesc} value={desc} style={styles.input}/>
 
-            <Text>Description</Text>
-            <TextInput onChangeText={setDesc} value={desc} style={styles.input}/>
+                <Text>Price</Text>
+                <TextInput onChangeText={setPrice} value={price} style={styles.input} keyboardType={'numeric'}
+                           numeric={true}/>
 
-            <Text>Price</Text>
-            <TextInput onChangeText={setPrice} value={price} style={styles.input} keyboardType={'numeric'}
-                       numeric={true}/>
+                <Button title={"add tier"} onPress={addTier}/>
+            </SafeAreaView>
 
-            <Button title={"add tier"} onPress={addTier}/>
         </View>
     )
 }

@@ -37,6 +37,8 @@ const styles = StyleSheet.create({
     }
 });
 
+// if you're reading this you are witnessing crime against humanity
+
 const spot = getRandomInt(0,500)
 
 const HomeScreen = ({navigation}) => {
@@ -119,7 +121,13 @@ const ParkingSpace = ({row, col, selected, fn, last}) => {
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-        }} onPress={() => fn({row: row, col: col})} activeOpacity={1}>
+        }} onPress={() => {
+            if(selected && (selected.row === row && selected.col === col)){
+                fn({})
+            } else {
+                fn({row: row, col: col})
+            }}
+        } activeOpacity={1}>
             <View>
                 {selected && (selected.row === row && selected.col === col) ?
                     <View>

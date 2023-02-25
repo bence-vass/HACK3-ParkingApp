@@ -11,13 +11,16 @@ import {
     setDoc, addDoc
 } from "firebase/firestore";
 import {db, auth} from "../../firebaseConfig";
-import {Button, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Modal} from 'react-native';
+import {Button, SafeAreaView, StyleSheet, Text, View, TouchableOpacity, Modal, ScrollView} from 'react-native';
 import {StatusBar} from "expo-status-bar";
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {getAuth, signOut} from "firebase/auth";
 import {Calendar, CalendarUtils, LocaleConfig} from "react-native-calendars";
 import {forwardRef, useCallback, useEffect, useRef, useState} from "react";
 import Header from "../components/Header";
+import COLORS from "../utils/COLORS";
+import {OrangeButton} from "../components/Buttons";
+import {useIsFocused} from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     container: {
@@ -30,6 +33,11 @@ const styles = StyleSheet.create({
 
 const Arrow = ({direction}) => {
     const text = direction === 'left' ? '<<' : '>>';
+    if(direction === 'left'){
+
+    } else {
+
+    }
     return (
         <Text>{text}</Text>
     );
@@ -57,6 +65,7 @@ const CalendarScreen = ({navigation}) => {
     const myGarageDocRef = doc(db, 'garages', 'my-garage')
 
     const [modalVisibility, setModalVisibility] = useState(false)
+    const isFocused = useIsFocused()
 
 
     async function fetchData() {
@@ -77,7 +86,7 @@ const CalendarScreen = ({navigation}) => {
     useEffect(() => {
         fetchData()
         fetchUserReservations()
-    }, [user])
+    }, [user, isFocused])
 
 
     const buySpot = async () => {
@@ -86,7 +95,7 @@ const CalendarScreen = ({navigation}) => {
 
             await Object.entries(selectedDates).forEach((v, k) => {
                 let md = v
-                md[1].color = 'green'
+                md[1].color = COLORS.BLUE
                 addDoc(resRef, {
                     markedDate: md,
                     date: v[0],
@@ -117,9 +126,8 @@ const CalendarScreen = ({navigation}) => {
     }
     console.log(tiers)
     return (
-        <View>
+        <View style={{backgroundColor: COLORS.BRIGHT_BLUE, flex:1}}>
             <Header navigation={navigation}/>
-
 
             <Modal visible={modalVisibility}>
                 <SafeAreaView>
@@ -170,7 +178,7 @@ const CalendarScreen = ({navigation}) => {
                                 [day.year + "-" + ("00" + day.month).slice(-2) + "-" + ("00" + i).slice(-2)]: {
                                     startingDay: i === later_day.day,
                                     endingDay: i === sooner_day.day,
-                                    color: "blue"
+                                    color: COLORS.LIGHT_BLUE
                                 },
                             }
                         }
@@ -179,12 +187,12 @@ const CalendarScreen = ({navigation}) => {
                         setSelectedDates(dates)
 
                     } else {
-                        setSelectedDates({[day.dateString]: {startingDay: true, endingDay: true, color: "blue"}})
+                        setSelectedDates({[day.dateString]: {startingDay: true, endingDay: true, color: COLORS.ORANGE}})
                     }
                 }}
                 onDayLongPress={day => {
                     setBeginDate(day)
-                    setSelectedDates({[day.dateString]: {startingDay: true, endingDay: true, color: "lightblue"}})
+                    setSelectedDates({[day.dateString]: {startingDay: true, endingDay: true, color: COLORS.BRIGHT_BLUE}})
                 }}
                 monthFormat={'yyyy MMM'}
                 onMonthChange={month => {
@@ -197,8 +205,7 @@ const CalendarScreen = ({navigation}) => {
                 onPressArrowLeft={subtractMonth => subtractMonth()}
                 onPressArrowRight={addMonth => addMonth()}
             />
-
-            <View>
+            <ScrollView style={{padding:20,}}>
 
                 <Text>Select Tier</Text>
                 {tiers && tiers.length !== 0 ? tiers.map((v, i) => {
@@ -207,15 +214,16 @@ const CalendarScreen = ({navigation}) => {
                         <View key={v.id}>
                             <Text>{v.name} / {v.id}</Text>
                             <Text>Current Price {v.current_price}</Text>
-                            <Button title={'select'} onPress={() => {
+                            <OrangeButton title={'Select'} onPress={()=>{
                                 setSelectedTier(v.id)
                                 setModalVisibility(true)
-                            }}/>
+                            }} wrapperStyle={{marginBottom: 25,}}/>
+
                         </View>
                     )
 
                 }) : <Text>Loading</Text>}
-            </View>
+            </ScrollView>
 
         </View>
     );

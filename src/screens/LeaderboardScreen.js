@@ -88,14 +88,6 @@ const MockData = [
 ]
 
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
 
 
 const LeaderboardScreen = ({navigation}) => {
@@ -134,7 +126,7 @@ const LeaderboardScreen = ({navigation}) => {
                                 alignItems: 'center',
                                 paddingVertical: 10,
                                 paddingHorizontal: 20
-                            }}><Text style={{fontSize: 18, color: COLORS.WHITE}}>Daily</Text></View>
+                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Daily</Text></View>
                             <View style={{
                                 width: 3,
                                 backgroundColor: COLORS.WHITE,
@@ -149,7 +141,7 @@ const LeaderboardScreen = ({navigation}) => {
                                 alignItems: 'center',
                                 paddingVertical: 10,
                                 paddingHorizontal: 20
-                            }}><Text style={{fontSize: 18, color: COLORS.WHITE}}>Daily</Text></View>
+                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Weekly</Text></View>
                             <View style={{
                                 width: 3,
                                 backgroundColor: COLORS.WHITE,
@@ -164,7 +156,7 @@ const LeaderboardScreen = ({navigation}) => {
                                 alignItems: 'center',
                                 paddingVertical: 10,
                                 paddingHorizontal: 20
-                            }}><Text style={{fontSize: 18, color: COLORS.WHITE}}>Daily</Text></View>
+                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Monthly</Text></View>
 
 
                         </View>
@@ -193,7 +185,7 @@ const LeaderboardScreen = ({navigation}) => {
 
                     <View style={{paddingHorizontal: 20, flex: 1, marginBottom: 150}}>
                         {Object.entries(MockData).map(v => {
-                            return <NearYou item={v[1]} isDark={v[0] == 0}/>
+                            return <NearYou item={v[1]} isDark={v[0] == 0} key={v[1].id}/>
                         })}
                     </View>
 
@@ -294,6 +286,7 @@ const Leader = ({height, top, name, score ,image}) => {
                     height: top ? 110: 80,
                     position: 'relative',
                     bottom: height / 3,
+                    right: top ? 5 : 0
                 }} resizeMode={'contain'}/>
                 <Text style={{
                     color: COLORS.DARK_BLUE,

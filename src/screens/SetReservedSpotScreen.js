@@ -11,10 +11,20 @@ import {
     setDoc
 } from "firebase/firestore";
 import {db, auth} from "../../firebaseConfig";
-import {Button, FlatList, StyleSheet, Text, TextInput, View} from 'react-native';
+import {Button, FlatList, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useAuthentication} from "../utils/hooks/useAuthentication";
 import {useEffect, useState} from "react";
 import Header from "../components/Header";
+import COLORS from "../utils/COLORS";
+import {OrangeButton} from "../components/Buttons";
+import {DefaultTextInput} from "../components/Inputs";
+
+const Avatar1 = require('../../assets/avatar1.png')
+const Avatar2 = require('../../assets/avatar2.png')
+const Avatar3 = require('../../assets/avatar3.png')
+const Avatar4 = require('../../assets/avatar4.png')
+const Avatar5 = require('../../assets/avatar5.png')
+const revokePic = require('../../assets/revoke.png')
 
 
 const styles = StyleSheet.create({
@@ -124,25 +134,33 @@ const SetReservedSpotScreen = ({navigation}) => {
 
     console.log('render set reser')
     return (
-        <View>
+        <View style={{flex:1, backgroundColor: COLORS.BRIGHT_BLUE}}>
             <Header navigation={navigation}/>
 
-            <Text>{counterReserved} out of {garage.available} available spots are reserved</Text>
-            <TextInput onChangeText={onChangeText} value={email} style={styles.input}/>
-            <Button title={"give user a spot"} onPress={giveSpotByEmail}/>
-            <FlatList data={users}
-                      renderItem={({item}) => <ListItem item={item} revokeFunction={revokeReservedParkingSpot}/>}
-                      keyExtractor={(item, index) => 'key' + index}/>
+            <SafeAreaView>
+                <View style={{backgroundColor: COLORS.LIGHT_BLUE, padding: 20}}>
+                    <Text style={{
+                        color: COLORS.DARK_BLUE,
+                        fontSize: 20,
+                        textAlign: 'center',
+                        marginBottom: 20,
+                    }}>{counterReserved} out of {garage.available} available spots are reserved</Text>
+                    <DefaultTextInput onChange={onChangeText} value={email}/>
+                    <OrangeButton title={"Give user a spot"} onPress={giveSpotByEmail} wrapperStyle={{marginVertical: 20}}/>
+                </View>
+                <View style={{padding: 20}}>
+
+                <FlatList data={users}
+                          renderItem={({item}) => <User item={item} revokeFunction={revokeReservedParkingSpot}/>}
+                          keyExtractor={(item, index) => 'key' + index}/>
+                </View>
+            </SafeAreaView>
+
+
         </View>
     );
 }
 
-const ListItem = ({item, revokeFunction}) => (
-    <View>
-        <Text>{item.email}</Text>
-        <Button title={"revoke"} onPress={() => revokeFunction(item.id)}/>
-    </View>
-)
 
 export default SetReservedSpotScreen;
 
@@ -150,3 +168,59 @@ export default SetReservedSpotScreen;
 
 
 
+const User = ({item, revokeFunction}) => {
+    return (
+        <View style={{
+            backgroundColor: COLORS.BLUE,
+            borderRadius: 15,
+            marginBottom: 10,
+            flexDirection: 'row',
+        }} key={item.id}>
+            <Image source={item.image} style={{
+                height: 50,
+                width: 50,
+                marginHorizontal: 15,
+                marginVertical: 13,
+                backgroundColor: COLORS.DARK_BLUE,
+                borderRadius: 50,
+
+            }} resizeMode={'contain'}/>
+            <View style={{
+                padding: 10,
+                //backgroundColor: 'pink',
+                justifyContent: 'center',
+            }}>
+                <Text style={{
+                    color: COLORS.WHITE,
+                    fontWeight: 'bold',
+                    fontSize: 14,
+                    //backgroundColor:'red'
+                }}>{item.email}</Text>
+                <Text style={{
+                    color: COLORS.WHITE,
+                    fontSize: 12,
+                    //backgroundColor: 'green'
+                }}>{item.id}</Text>
+            </View>
+            <View style={{
+                //backgroundColor: 'pink',
+                //alignSelf: 'flex-end',
+                flex:1,
+            }}>
+                <TouchableOpacity style={{
+                    //backgroundColor: 'purple',
+                    alignSelf: 'flex-end',
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'row'
+                }} onPress={()=>revokeFunction(item.id)}>
+                    <View style={{marginRight: 25}}><Image source={revokePic} style={{height: 30, width:30}}/></View>
+
+                </TouchableOpacity>
+
+            </View>
+
+        </View>
+    )
+}
