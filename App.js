@@ -62,22 +62,22 @@ const UserDrawer = ({isAdmin}) => {
             >
                 <DrawerNav.Screen name={'home'}
                                   options={{
-                                      drawerLabel: 'Home',
+                                      drawerLabel: 'Főoldal',
                                   }}
                                   component={HomeScreen}/>
                 <DrawerNav.Screen name={'calendar'}
                                   options={{
-                                      drawerLabel: 'Calendar',
+                                      drawerLabel: 'Naptár',
                                   }}
                                   component={CalendarScreen}/>
                 <DrawerNav.Screen name={'profile'}
                                   options={{
-                                      drawerLabel: 'Profile',
+                                      drawerLabel: 'Profil',
                                   }}
                                   component={ProfileScreen}/>
                 <DrawerNav.Screen name={'leaderboard'}
                                   options={{
-                                      drawerLabel: 'Scoreboard',
+                                      drawerLabel: 'Ranglista',
                                   }}
                                   component={LeaderboardScreen}/>
 
@@ -85,27 +85,27 @@ const UserDrawer = ({isAdmin}) => {
 
                     <DrawerNav.Screen name={'dashboard'}
                                       options={{
-                                          drawerLabel: 'Dashboard',
+                                          drawerLabel: 'Beállítások',
                                       }}
                                       component={DashboardScreen}/>
                     <DrawerNav.Screen name={'set-parking-spots'}
                                       options={{
-                                          drawerLabel: 'My Garage',
+                                          drawerLabel: 'Parkolóház',
                                       }}
                                       component={SetParkingSpotScreen}/>
                     <DrawerNav.Screen name={'set-reserved-spots'}
                                       options={{
-                                          drawerLabel: 'Set Reserved Spots',
+                                          drawerLabel: 'Fenntartott Parkolóhelyek',
                                       }}
                                       component={SetReservedSpotScreen}/>
                     <DrawerNav.Screen name={'set-tier-overview'}
                                       options={{
-                                          drawerLabel: 'Tier Settings',
+                                          drawerLabel: 'Szint Beállítások',
                                       }}
                                       component={SetTierOverviewScreen}/>
                     <DrawerNav.Screen name={'add-tier'}
                                       options={{
-                                          drawerLabel: 'Create New Tier',
+                                          drawerLabel: 'Új Szint Létrehozása',
                                       }}
                                       component={AddTierScreen}/>
                 </> : null}

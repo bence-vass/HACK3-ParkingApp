@@ -24,27 +24,27 @@ const Avatar5 = require('../../assets/avatar5.png')
 const MockData = [
     {
         id: 1,
-        name: 'You',
+        name: 'Te',
         image: Avatar1,
-        credit: 30,
-        rank: 28,
+        credit: 35,
+        rank: 31,
         up: true,
     },
     {
         id: 2,
-        name: 'Martha Anderson',
+        name: 'Andor Márta',
         image: Avatar2,
-        credit: 80,
+        credit: 21,
         rank: 28,
         up: false,
 
     },
     {
         id: 3,
-        name: 'Julia Clover',
+        name: 'Virág Júlia',
         image: Avatar3,
-        credit: 50,
-        rank: 28,
+        credit: 42,
+        rank: 85,
         up: true,
 
     },
@@ -52,8 +52,8 @@ const MockData = [
         id: 4,
         name: 'Martha Anderson',
         image: Avatar4,
-        credit: 80,
-        rank: 28,
+        credit: 32,
+        rank: 65,
         up: false,
 
     },
@@ -62,7 +62,7 @@ const MockData = [
         name: 'Julia Clover',
         image: Avatar5,
         credit: 50,
-        rank: 28,
+        rank: 23,
         up: true,
 
     },
@@ -70,8 +70,8 @@ const MockData = [
         id: 6,
         name: 'Martha Anderson',
         image: Avatar3,
-        credit: 80,
-        rank: 28,
+        credit: 54,
+        rank: 43,
         up: false,
 
     },
@@ -79,8 +79,8 @@ const MockData = [
         id: 7,
         name: 'Julia Clover',
         image: Avatar4,
-        credit: 50,
-        rank: 28,
+        credit: 75,
+        rank: 12,
         up: true,
 
     },
@@ -105,7 +105,7 @@ const LeaderboardScreen = ({navigation}) => {
                         <Text style={{
                             color: COLORS.DARK_BLUE,
                             fontSize: 24,
-                        }}>Leaderboard</Text>
+                        }}>Ranglista</Text>
                     </View>
 
                     <View style={{
@@ -126,7 +126,7 @@ const LeaderboardScreen = ({navigation}) => {
                                 alignItems: 'center',
                                 paddingVertical: 10,
                                 paddingHorizontal: 20
-                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Daily</Text></View>
+                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Napi</Text></View>
                             <View style={{
                                 width: 3,
                                 backgroundColor: COLORS.WHITE,
@@ -141,7 +141,7 @@ const LeaderboardScreen = ({navigation}) => {
                                 alignItems: 'center',
                                 paddingVertical: 10,
                                 paddingHorizontal: 20
-                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Weekly</Text></View>
+                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Heti</Text></View>
                             <View style={{
                                 width: 3,
                                 backgroundColor: COLORS.WHITE,
@@ -156,7 +156,7 @@ const LeaderboardScreen = ({navigation}) => {
                                 alignItems: 'center',
                                 paddingVertical: 10,
                                 paddingHorizontal: 20
-                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Monthly</Text></View>
+                            }}><Text style={{fontSize: 14, color: COLORS.WHITE}}>Havi</Text></View>
 
 
                         </View>
@@ -166,9 +166,9 @@ const LeaderboardScreen = ({navigation}) => {
                         paddingHorizontal: 13,
                         flexDirection: 'row',
                     }}>
-                        <Leader height={145} name={"Maria"} score={254} image={Leaderboard2}/>
-                        <Leader height={190} top={true} name={"Rachel"} score={1200} image={Leaderboard1}/>
-                        <Leader height={130} name={"Andrew"} score={100} image={Leaderboard3}/>
+                        <Leader height={145} name={"Mária"} score={254} image={Leaderboard2}/>
+                        <Leader height={190} top={true} name={"Ráchel"} score={1200} image={Leaderboard1}/>
+                        <Leader height={130} name={"András"} score={100} image={Leaderboard3}/>
 
 
                     </View>
@@ -180,7 +180,7 @@ const LeaderboardScreen = ({navigation}) => {
                             color: COLORS.DARK_BLUE,
                             fontSize: 16,
                             fontWeight: 'bold',
-                        }}>Ranks near you</Text>
+                        }}>Hozzád közeli eredmények</Text>
                     </View>
 
                     <View style={{paddingHorizontal: 20, flex: 1, marginBottom: 150}}>

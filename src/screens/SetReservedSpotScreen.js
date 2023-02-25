@@ -144,9 +144,9 @@ const SetReservedSpotScreen = ({navigation}) => {
                         fontSize: 20,
                         textAlign: 'center',
                         marginBottom: 20,
-                    }}>{counterReserved} out of {garage.available} available spots are reserved</Text>
+                    }}>{counterReserved} parkolóhely fenntartott a {garage.available} elérhető parkolóhelyből</Text>
                     <DefaultTextInput onChange={onChangeText} value={email}/>
-                    <OrangeButton title={"Give user a spot"} onPress={giveSpotByEmail} wrapperStyle={{marginVertical: 20}}/>
+                    <OrangeButton title={"Parkolóhely kiadása"} onPress={giveSpotByEmail} wrapperStyle={{marginVertical: 20}}/>
                 </View>
                 <View style={{padding: 20}}>
 

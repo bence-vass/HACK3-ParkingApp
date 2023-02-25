@@ -65,7 +65,7 @@ export const SetTierOverviewScreen = ({navigation}) => {
                     <Text>Set Tier Screen</Text>
                     <FlatList data={tiers} renderItem={({item}) => <TierItem item={item}/>}
                               keyExtractor={(item, index) => 'key' + index}/>
-                    <OrangeButton title={"Add Tier"} onPress={() => navigation.navigate('add-tier')}/>
+                    <OrangeButton title={"Új szint létrehozása"} onPress={() => navigation.navigate('add-tier')}/>
                 </View>
             </SafeAreaView>
 
@@ -127,18 +127,18 @@ export const AddTierScreen = ({navigation}) => {
             <Header navigation={navigation}/>
             <SafeAreaView>
                 <View style={{padding: 20}}>
-                <Text style={{...styles.text,...{fontSize: 20, fontWeight: 'bold'}}}>Create Tier (Nr.:{tierCounter})</Text>
-                <Text style={styles.text}>Name</Text>
+                <Text style={{...styles.text,...{fontSize: 20, fontWeight: 'bold'}}}>Új szint (Nr.:{tierCounter})</Text>
+                <Text style={styles.text}>Megnevezés</Text>
                 <DefaultTextInput onChangeText={setName} value={name}/>
 
-                <Text style={styles.text}>Description</Text>
+                <Text style={styles.text}>Leírás</Text>
                 <DefaultTextInput onChangeText={setDesc} value={desc}/>
 
-                <Text style={styles.text}>Price</Text>
+                <Text style={styles.text}>Alapár</Text>
                 <DefaultTextInput onChangeText={setPrice} value={price} keyboardType={'numeric'}
                            numeric={true}/>
 
-                <OrangeButton title={"Create Tier"} onPress={addTier} wrapperStyle={{marginVertical: 35}}/>
+                <OrangeButton title={"Új szint létrehozása"} onPress={addTier} wrapperStyle={{marginVertical: 35}}/>
                 </View>
             </SafeAreaView>
 

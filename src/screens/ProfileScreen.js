@@ -30,7 +30,7 @@ const ProfileScreen = ({navigation}) => {
                             fontSize: 24,
                             color: COLORS.DARK_BLUE,
                             marginBottom: 20,
-                        }}>Profile</Text>
+                        }}>Profil</Text>
 
                     </View>
                     <View style={{
@@ -42,7 +42,7 @@ const ProfileScreen = ({navigation}) => {
                             fontSize: 16,
                             marginBottom: 8,
                             marginLeft: 8,
-                        }}>Name</Text>
+                        }}>Felhasználó név</Text>
                         <DefaultTextInput value={"Kovács István"}/>
                         <Text style={{
                             color: COLORS.DARK_BLUE,
@@ -51,7 +51,7 @@ const ProfileScreen = ({navigation}) => {
                             marginLeft: 8,
                             marginTop: 16,
 
-                        }}>Phone number</Text>
+                        }}>Telefonszám</Text>
                         <DefaultTextInput value={"+36 30 5555 555"}/>
                         <Text style={{
                             color: COLORS.DARK_BLUE,
@@ -59,7 +59,7 @@ const ProfileScreen = ({navigation}) => {
                             marginBottom: 8,
                             marginLeft: 8,
                             marginTop: 16,
-                        }}>E-mail address</Text>
+                        }}>E-mail cím</Text>
                         <DefaultTextInput value={"kovacs.istvan@gmail.com"}/>
                     </View>
                     <View style={{paddingTop: 20, paddingBottom:50, paddingHorizontal: 80}}>
@@ -102,7 +102,7 @@ const ProfileScreen = ({navigation}) => {
                                 fontSize: 14,
                             }}>Profil mentése</Text>
                         </TouchableOpacity>
-                        <OrangeButton title={"Sign out"} onPress={() => signOut(auth)}/>
+                        <OrangeButton title={"Kijelentkezes"} onPress={() => signOut(auth)}/>
 
                     </View>
                 </ScrollView>

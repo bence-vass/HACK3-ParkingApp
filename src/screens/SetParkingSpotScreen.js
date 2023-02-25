@@ -53,11 +53,11 @@ const SetParkingSpotScreen = ({navigation}) => {
             <Header navigation={navigation}/>
             <SafeAreaView>
                 <View style={{padding: 20, alignItems: 'center'}}>
-                    <Text style={styles.text}>Available Spots on Property</Text>
+                    <Text style={styles.text}>Elérhető parkolóhelyek a parkolóházban:</Text>
                     <Text style={styles.text}>{spots?.available ? spots.available : 0}</Text>
-                    <Text style={styles.text}>Reserved Spots</Text>
+                    <Text style={styles.text}>Fenntartott Parkolóhelyek:</Text>
                     <Text style={{...styles.text, ...{marginBottom: 20}}}>{spots?.reserved ? spots.reserved : 0}</Text>
-                    <OrangeButton title={"Setup Reserved Spots"}
+                    <OrangeButton title={"Fenntartott Parkolóhelyek Beállítása"}
                                   onPress={() => navigation.navigate('set-reserved-spots')}/>
                 </View>
             </SafeAreaView>

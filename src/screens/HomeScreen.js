@@ -59,10 +59,10 @@ const HomeScreen = ({navigation}) => {
                 <SafeAreaView edges={['bottom', 'left', 'right']}>
 
                     <View style={styles.userContainer}>
-                        <Text style={{...styles.text, ...{fontSize: 18, marginBottom: 0}}}>Kovacs Istvan</Text>
+                        <Text style={{...styles.text, ...{fontSize: 18, marginBottom: 0}}}>Kovács István</Text>
                         {user?.email ? <Text style={{...styles.text, ...{fontSize: 10,}}}>{user.email}</Text> : null}
                         <Text style={{...styles.text, ...{fontSize: 12,}}}>AA - AA - 123</Text>
-                        <Text style={{...styles.text, ...{fontSize: 16,}}}>2023-02-28</Text>
+                        <Text style={{...styles.text, ...{fontSize: 16,}}}>2023.02.28</Text>
                         <Text style={{...styles.text, ...{fontSize: 12,}}}>állandó parkolóhely: A12</Text>
 
                     </View>

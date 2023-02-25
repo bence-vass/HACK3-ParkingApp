@@ -138,10 +138,10 @@ const CalendarScreen = ({navigation}) => {
                         justifyContent: 'center',
                     }}>
                         <Text style={{
-                            fontSize: 30,
+                            fontSize: 28,
                             color: COLORS.WHITE,
                             marginBottom: 30,
-                        }}>Are you sure?</Text>
+                        }}>Biztosan le akarod foglalni?</Text>
 
 
                         <TouchableOpacity style={{
@@ -159,11 +159,11 @@ const CalendarScreen = ({navigation}) => {
                                 color: COLORS.WHITE,
                                 fontSize: 22,
 
-                            }}>No</Text>
+                            }}>Mégse</Text>
                         </TouchableOpacity>
 
 
-                        <OrangeButton title={"Yes"} onPress={async () => {
+                        <OrangeButton title={"Jóváhagyás"} onPress={async () => {
                             //console.log(selectedTier, selectedDates,)
                             await buySpot()
 
@@ -247,7 +247,7 @@ const CalendarScreen = ({navigation}) => {
                         <View key={v.id}>
                             <Text>{v.name} / {v.id}</Text>
                             <Text>Current Price {v.current_price}</Text>
-                            <OrangeButton title={'Reserve'} onPress={() => {
+                            <OrangeButton title={'Lefoglalás'} onPress={() => {
                                 setSelectedTier(v.id)
                                 setModalVisibility(true)
                             }} wrapperStyle={{marginBottom: 25,}}/>

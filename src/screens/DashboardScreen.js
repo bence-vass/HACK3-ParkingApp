@@ -50,7 +50,7 @@ const HomeScreen = ({navigation}) => {
                             fontSize: 24,
                             color: COLORS.DARK_BLUE,
                             marginBottom: 20,
-                        }}>Profile</Text>
+                        }}>Beállítások</Text>
 
                     </View>
 
@@ -63,13 +63,13 @@ const HomeScreen = ({navigation}) => {
                             justifyContent: 'center',
                             padding: 10,
                             marginBottom: 20
-                        }} onPress={()=>navigation.navigate('set-tier-overview')}>
+                        }} onPress={()=>navigation.navigate('set-parking-spots')}>
                             <Text style={{
                                 color: COLORS.WHITE,
                                 fontSize: 14,
-                            }}>Parking Spots</Text>
+                            }}>Parkolóház</Text>
                         </TouchableOpacity>
-                        <OrangeButton title={"Set Tiers"} onPress={()=>navigation.navigate('set-tier-overview')}/>
+                        <OrangeButton title={"Szint Beállítások"} onPress={()=>navigation.navigate('set-tier-overview')}/>
 
                     </View>
                 </ScrollView>
